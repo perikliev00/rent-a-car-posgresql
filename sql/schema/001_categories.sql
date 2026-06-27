@@ -1,0 +1,7 @@
+-- Categories
+CREATE TABLE IF NOT EXISTS categories (
+  id         BIGSERIAL PRIMARY KEY,
+  name       VARCHAR(255) NOT NULL UNIQUE,
+  created_at TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+);

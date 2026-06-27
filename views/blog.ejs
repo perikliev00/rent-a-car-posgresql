@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/footer-pages.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="footer-page">
+    <%- include('partials/header') %>
+
+    <main class="footer-page-content">
+        <div class="footer-page-hero">
+            <h1><i class="fas fa-newspaper"></i> Latest News & Updates</h1>
+            <p>Stay informed with the latest news, tips, and insights from the luxury car rental world.</p>
+        </div>
+
+        <div class="footer-page-section">
+            <h2>Recent Articles</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">The Ultimate Guide to Luxury Car Rentals</div>
+                <div class="faq-answer">Discover everything you need to know about renting premium vehicles, from booking tips to driving etiquette. Learn how to make the most of your luxury car rental experience.</div>
+                <p style="color: #ffd23f; font-size: 0.9rem; margin-top: 0.5rem;">Published: January 15, 2025</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">New Fleet Additions: 2025 BMW M Series</div>
+                <div class="faq-answer">We're excited to announce the addition of the latest BMW M5 Competition and M8 Coupe to our premium fleet. Experience unparalleled performance and luxury.</div>
+                <p style="color: #ffd23f; font-size: 0.9rem; margin-top: 0.5rem;">Published: January 10, 2025</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Top 5 Driving Routes for Your Luxury Car Adventure</div>
+                <div class="faq-answer">Explore the most scenic and exciting driving routes perfect for luxury vehicles. From coastal highways to mountain passes, discover your next adventure.</div>
+                <p style="color: #ffd23f; font-size: 0.9rem; margin-top: 0.5rem;">Published: January 5, 2025</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Holiday Special: Extended Rental Packages</div>
+                <div class="faq-answer">Take advantage of our special holiday offers with extended rental packages. Perfect for long trips and special occasions with exclusive discounts.</div>
+                <p style="color: #ffd23f; font-size: 0.9rem; margin-top: 0.5rem;">Published: December 20, 2024</p>
+            </div>
+        </div>
+
+        <div class="footer-page-section">
+            <h2>Categories</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-car-side"></i>
+                    <h4>Vehicle Reviews</h4>
+                    <p>In-depth reviews of our luxury fleet</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h4>Travel Guides</h4>
+                    <p>Best destinations for luxury car trips</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-tools"></i>
+                    <h4>Maintenance Tips</h4>
+                    <p>Keep your luxury vehicle in top condition</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-tag"></i>
+                    <h4>Special Offers</h4>
+                    <p>Latest deals and promotions</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-page-section">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest articles, car reviews, and exclusive offers delivered to your inbox.</p>
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <input type="email" placeholder="Enter your email address" style="padding: 1rem; border-radius: 8px; border: 2px solid #ffd23f; background: rgba(24, 24, 24, 0.8); color: #fff; width: 250px; margin-right: 1rem;">
+                <button class="btn-cta" style="margin: 0; display: inline-flex;">
+                    <i class="fas fa-envelope"></i>
+                    Subscribe
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-page-cta">
+            <a href="/" class="btn-cta">
+                <i class="fas fa-home"></i>
+                Back to Home
+            </a>
+            <a href="/fleet" class="btn-cta btn-secondary">
+                <i class="fas fa-car"></i>
+                View Our Fleet
+            </a>
+        </div>
+    </main>
+
+    <%- include('partials/footer') %>
+
+    <script src="/js/mobileNav.js"></script>
+</body>
+</html>

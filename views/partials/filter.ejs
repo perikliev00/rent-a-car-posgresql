@@ -1,0 +1,120 @@
+<section class="filter-section container">
+  <% /* ─────────────────────────────────────────────
+       Guard defaults – за да няма ReferenceError,
+       когато дадена страница не подава всички полета
+  ──────────────────────────────────────────────── */
+     if (typeof pickupLocation  === 'undefined') pickupLocation  = '';
+     if (typeof returnLocation  === 'undefined') returnLocation  = '';
+     if (typeof pickupDateISO   === 'undefined') pickupDateISO   = '';
+     if (typeof returnDateISO   === 'undefined') returnDateISO   = '';
+     if (typeof pickupDate      === 'undefined') pickupDate      = '';
+     if (typeof returnDate      === 'undefined') returnDate      = '';
+     if (typeof pickupDateOnly  === 'undefined') pickupDateOnly  = '';
+     if (typeof returnDateOnly  === 'undefined') returnDateOnly  = '';
+     if (typeof pickupTime      === 'undefined') pickupTime      = '';
+     if (typeof returnTime      === 'undefined') returnTime      = '';
+  %>
+
+  <h2><%= title %></h2>
+
+  <form id="homeSearchForm" class="filter-form" action="/postSearchCars" method="post">
+    <input type="hidden" name="_csrf" value="<%= csrfToken || '' %>">
+    <!-- ── Locations Pair ─────────────────────────── -->
+    <div class="form-row-pair location-pair">
+      <div class="form-row pickup-location">
+        <label for="pickup-location">Pick-Up Location</label>
+        <select id="pickup-location" name="pickup-location">
+          <option value="office"           <%= pickupLocation === 'office' ? 'selected' : '' %>>Office</option>
+          <option value="sunny-beach"    <%= pickupLocation === 'sunny-beach'    ? 'selected' : '' %>>Sunny Beach</option>
+          <option value="sveti-vlas" <%= pickupLocation === 'sveti-vlas' ? 'selected' : '' %>>Sveti Vlas</option>
+          <option value="nesebar"     <%= pickupLocation === 'nesebar'     ? 'selected' : '' %>>Nesebar</option>
+          <option value="burgas"     <%= pickupLocation === 'burgas'     ? 'selected' : '' %>>Burgas</option>
+          <option value="burgas-airport" <%= pickupLocation === 'burgas-airport' ? 'selected' : '' %>>Burgas Airport</option>
+          <option value="sofia"     <%= pickupLocation === 'sofia'     ? 'selected' : '' %>>Sofia</option>
+          <option value="sofia-airport" <%= pickupLocation === 'sofia-airport' ? 'selected' : '' %>>Sofia Airport</option>
+          <option value="varna"     <%= pickupLocation === 'varna'     ? 'selected' : '' %>>Varna</option>
+          <option value="varna-airport" <%= pickupLocation === 'varna-airport' ? 'selected' : '' %>>Varna Airport</option>
+          <option value="plovdiv"     <%= pickupLocation === 'plovdiv'     ? 'selected' : '' %>>Plovdiv</option>
+          <option value="eleni" <%= pickupLocation === 'eleni' ? 'selected' : '' %>>Eleni</option>
+          <option value="ravda" <%= pickupLocation === 'ravda' ? 'selected' : '' %>>Ravda</option>
+        </select>
+      </div>
+
+      <div class="form-row return-location">
+        <label for="return-location">Return Location</label>
+        <select id="return-location" name="return-location">
+          <option value="office"           <%= !returnLocation ? 'selected' : '' %>>Office</option>
+          <option value="sunny-beach"    <%= returnLocation === 'sunny-beach'    ? 'selected' : '' %>>Sunny Beach</option>
+          <option value="sveti-vlas" <%= returnLocation === 'sveti-vlas' ? 'selected' : '' %>>Sveti Vlas</option>
+          <option value="nesebar"     <%= returnLocation === 'nesebar'     ? 'selected' : '' %>>Nesebar</option>
+          <option value="burgas"     <%= returnLocation === 'burgas'     ? 'selected' : '' %>>Burgas</option>
+          <option value="burgas-airport" <%= returnLocation === 'burgas-airport' ? 'selected' : '' %>>Burgas Airport</option>
+          <option value="sofia"     <%= returnLocation === 'sofia'     ? 'selected' : '' %>>Sofia</option>
+          <option value="sofia-airport" <%= returnLocation === 'sofia-airport' ? 'selected' : '' %>>Sofia Airport</option>
+          <option value="varna"     <%= returnLocation === 'varna'     ? 'selected' : '' %>>Varna</option>
+          <option value="varna-airport" <%= returnLocation === 'varna-airport' ? 'selected' : '' %>>Varna Airport</option>
+          <option value="plovdiv"     <%= returnLocation === 'plovdiv'     ? 'selected' : '' %>>Plovdiv</option>
+          <option value="eleni" <%= returnLocation === 'eleni' ? 'selected' : '' %>>Eleni</option>
+          <option value="ravda" <%= returnLocation === 'ravda' ? 'selected' : '' %>>Ravda</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ── Dates Pair ─────────────────────────────── -->
+    <div class="form-row-pair date-pair">
+      <div class="form-row pickup-date">
+        <label for="pickup-date">Pick-Up Date</label>
+        <input
+          type="text"
+          id="pickup-date"
+          name="pickup-date"
+          class="calendar-input"
+          value="<%= pickupDateISO || pickupDate || '' %>"
+          placeholder="Select date"
+          readonly>
+      </div>
+
+      <div class="form-row return-date">
+        <label for="return-date">Return Date</label>
+        <input
+          type="text"
+          id="return-date"
+          name="return-date"
+          class="calendar-input"
+          value="<%= returnDateISO || returnDate || '' %>"
+          placeholder="Select date"
+          readonly>
+      </div>
+    </div>
+
+    <!-- ── Times Pair ─────────────────────────────── -->
+    <div class="form-row-pair time-pair">
+      <div class="form-row pickup-time">
+        <label for="pickup-time">Pick-Up Time</label>
+        <select id="pickup-time" name="pickup-time">
+          <option value="" <%= !pickupTime ? 'selected' : '' %>>Select Time</option>
+          <% ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00']
+             .forEach(t => { %>
+               <option value="<%= t %>" <%= pickupTime === t ? 'selected' : '' %>><%= t %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <div class="form-row return-time">
+        <label for="return-time">Return Time</label>
+        <select id="return-time" name="return-time">
+          <option value="" <%= !returnTime ? 'selected' : '' %>>Select Time</option>
+          <% ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00']
+             .forEach(t => { %>
+               <option value="<%= t %>" <%= returnTime === t ? 'selected' : '' %>><%= t %></option>
+          <% }) %>
+        </select>
+      </div>
+    </div>
+
+    <!-- ── Submit ─────────────────────────────── -->
+    <div class="form-row submit-row">
+      <button type="submit" class="btn">Search Available Cars</button>
+    </div>
+  </form>
+</section>

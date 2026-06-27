@@ -1,0 +1,197 @@
+/* Base layout for all error pages */
+body.error-page {
+  position: relative;
+  min-height: 100vh;
+  color: #e5e7eb; /* slate-200 */
+}
+
+/* Dark overlay above the background image */
+.error-bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+/* Main flex layout: header + content + footer */
+.error-layout {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main section takes all remaining height between header and footer */
+.error-page-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Wrapper that positions the card horizontally */
+.error-card-wrapper {
+  width: 100%;
+  max-width: 540px;
+  margin-left: clamp(1.5rem, 8vw, 5.5rem);
+  padding-inline: 1.5rem;
+}
+
+/* Glassmorphism card */
+.error-card {
+  background: rgba(15, 23, 42, 0.86); /* slate-900 with alpha */
+  border-radius: 1.25rem;
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.9);
+  padding: 2.25rem 2rem;
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(148, 163, 184, 0.45); /* slate-400 */
+}
+
+.error-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.error-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.12); /* indigo-600 */
+  border: 1px solid rgba(129, 140, 248, 0.7); /* indigo-400 */
+  color: #a5b4fc;
+  font-size: 1rem;
+}
+
+.error-card-header small {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #a5b4fc; /* indigo-300 */
+}
+
+.error-card-header h1 {
+  font-size: clamp(1.9rem, 2.4vw, 2.5rem);
+  line-height: 1.15;
+  font-weight: 700;
+  color: #f9fafb;
+}
+
+.error-card-message {
+  margin-bottom: 1.75rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #e5e7eb;
+}
+
+/* Buttons row */
+.error-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.error-btn-primary,
+.error-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease, transform 0.1s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.error-btn-primary {
+  background: #6366f1; /* indigo-500 */
+  color: #f9fafb;
+  border: 1px solid transparent;
+}
+
+.error-btn-primary:hover {
+  background: #4f46e5; /* indigo-600 */
+  transform: translateY(-1px);
+}
+
+.error-btn-secondary {
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+}
+
+.error-btn-secondary:hover {
+  border-color: #e5e7eb;
+  transform: translateY(-1px);
+}
+
+.error-btn-primary i,
+.error-btn-secondary i {
+  margin-right: 0.4rem;
+}
+
+.error-card-hint {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+/* 500-specific accent */
+body.error-page--500 .error-card-icon {
+  background: rgba(248, 113, 113, 0.12); /* red light bg */
+  border-color: rgba(248, 113, 113, 0.8);
+  color: #fed7d7;
+}
+
+body.error-page--500 .error-card-header small {
+  color: #fecaca;
+}
+
+/* Responsive: on small screens center the card */
+@media (max-width: 768px) {
+  .error-page-main {
+    justify-content: center;
+    padding-block: 2.5rem;
+  }
+
+  .error-card-wrapper {
+    margin-left: 0;
+    max-width: 100%;
+    padding-inline: 1.25rem;
+  }
+
+  .error-card {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .error-card-header {
+    align-items: flex-start;
+  }
+
+  .error-card-header h1 {
+    font-size: 1.7rem;
+  }
+
+  .error-card-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .error-btn-primary,
+  .error-btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}

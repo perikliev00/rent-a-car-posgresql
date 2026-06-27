@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/footer-pages.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="footer-page">
+  <%- include('partials/header') %>
+
+  <main class="footer-page-content">
+    <div class="footer-page-hero">
+      <h1><i class="fas fa-file-shield"></i> Insurance Information</h1>
+      <p>Coverage options and responsibilities.</p>
+    </div>
+
+    <section class="footer-page-section">
+      <h2>Coverage</h2>
+      <ul>
+        <li>Basic third-party liability included with every rental.</li>
+        <li>Collision Damage Waiver (CDW) available as an add-on.</li>
+        <li>Reduced deductible options for premium vehicles.</li>
+      </ul>
+    </section>
+
+    <section class="footer-page-section">
+      <h2>Exclusions</h2>
+      <p>Negligent driving, unauthorized drivers, or intoxication voids coverage. See our terms for the full list of exclusions.</p>
+    </section>
+
+    <div class="footer-page-cta">
+      <a href="/terms" class="btn-cta">View Terms</a>
+      <a href="/" class="btn-cta btn-secondary">Back to Home</a>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/mobileNav.js"></script>
+</body>
+</html>
+
+

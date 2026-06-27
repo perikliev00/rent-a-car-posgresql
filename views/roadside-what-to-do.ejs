@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/footer-pages.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="footer-page">
+  <%- include('partials/header') %>
+
+  <main class="footer-page-content">
+    <div class="footer-page-hero">
+      <h1><i class="fas fa-exclamation-triangle"></i> What To Do</h1>
+      <p>Steps to follow if you need assistance.</p>
+    </div>
+
+    <section class="footer-page-section">
+      <h2>Immediate Actions</h2>
+      <ol style="padding-left:1.25rem;line-height:1.8">
+        <li>Park safely and turn on hazard lights.</li>
+        <li>Contact our hotline listed in your rental agreement.</li>
+        <li>Share your location and vehicle details.</li>
+        <li>Wait for our assistance; do not attempt unsafe repairs.</li>
+      </ol>
+    </section>
+
+    <div class="footer-page-cta">
+      <a href="/roadside-insurance" class="btn-cta">Insurance Info</a>
+      <a href="/" class="btn-cta btn-secondary">Back to Home</a>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/mobileNav.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/footer-pages.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="footer-page">
+    <%- include('partials/header') %>
+
+    <main class="footer-page-content">
+        <div class="footer-page-hero">
+            <h1><i class="fas fa-tools"></i> 24/7 Roadside Assistance</h1>
+            <p>Professional help when you need it most. We're here to keep you moving.</p>
+        </div>
+
+        <div class="footer-page-section">
+            <h2>Emergency Contact</h2>
+            <div style="text-align: center; margin: 2rem 0;">
+                <div style="background: rgba(255, 210, 63, 0.2); padding: 2rem; border-radius: 12px; border: 2px solid #ffd23f;">
+                    <h3 style="color: #ffd23f; font-size: 2rem; margin-bottom: 1rem;">
+                        <i class="fas fa-phone"></i> +359893813214
+                    </h3>
+                    <p style="font-size: 1.2rem; margin: 0;">Available 24 hours a day, 7 days a week</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-page-section">
+            <h2>Services Included</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-battery-empty"></i>
+                    <h4>Jump Start</h4>
+                    <p>Dead battery? We'll get you back on the road quickly</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-key"></i>
+                    <h4>Lockout Service</h4>
+                    <p>Locked out of your vehicle? Professional lockout assistance</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-tire"></i>
+                    <h4>Tire Change</h4>
+                    <p>Flat tire replacement with spare tire installation</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-gas-pump"></i>
+                    <h4>Emergency Fuel</h4>
+                    <p>Out of fuel? We'll deliver enough to get you to a station</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-truck"></i>
+                    <h4>Towing Service</h4>
+                    <p>Professional towing to the nearest authorized repair facility</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-car-crash"></i>
+                    <h4>Accident Support</h4>
+                    <p>Immediate assistance and coordination after an accident</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-page-section">
+            <h2>What to Do in an Emergency</h2>
+            <ol style="list-style: decimal; padding-left: 2rem;">
+                <li style="margin-bottom: 1rem; padding-left: 0.5rem;">
+                    <strong>Stay Safe:</strong> Move to a safe location away from traffic if possible
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 0.5rem;">
+                    <strong>Call Us:</strong> Contact our 24/7 roadside assistance immediately
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 0.5rem;">
+                    <strong>Provide Information:</strong> Share your location, rental agreement number, and situation
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 0.5rem;">
+                    <strong>Wait Safely:</strong> Stay with the vehicle if safe, or move to a secure location
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 0.5rem;">
+                    <strong>Follow Instructions:</strong> Our team will guide you through the next steps
+                </li>
+            </ol>
+        </div>
+
+        <div class="footer-page-section">
+            <h2>Information We Need</h2>
+            <p>When calling for roadside assistance, please have the following information ready:</p>
+            <ul>
+                <li>Your rental agreement number</li>
+                <li>Vehicle license plate number</li>
+                <li>Your exact location (address or landmarks)</li>
+                <li>Description of the problem</li>
+                <li>Your contact phone number</li>
+                <li>Number of passengers with you</li>
+            </ul>
+        </div>
+
+        <div class="footer-page-section">
+            <h2>Response Times</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <h4>Urban Areas</h4>
+                    <p>30-45 minutes average response time</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-mountain"></i>
+                    <h4>Rural Areas</h4>
+                    <p>45-90 minutes depending on location</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-road"></i>
+                    <h4>Highways</h4>
+                    <p>Priority response for safety reasons</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-page-cta">
+            <h2>Need Help Now?</h2>
+            <a href="tel:+359893813214" class="btn-cta">
+                <i class="fas fa-phone"></i>
+                Call +359893813214
+            </a>
+            <a href="/" class="btn-cta btn-secondary">
+                <i class="fas fa-home"></i>
+                Back to Home
+            </a>
+        </div>
+    </main>
+
+    <%- include('partials/footer') %>
+
+    <script src="/js/mobileNav.js"></script>
+</body>
+</html>

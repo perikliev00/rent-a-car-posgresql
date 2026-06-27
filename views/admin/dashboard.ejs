@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - LuxRide</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <%
+    // Helper function to format dates without dashes
+    function formatDate(dateString) {
+      if (!dateString) return '';
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return dateString;
+      
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const day = date.getDate();
+      const month = months[date.getMonth()];
+      const year = date.getFullYear();
+      
+      return `${day} ${month} ${year}`;
+    }
+    
+    // Helper function to format location names
+    function formatLocation(locationString) {
+      if (!locationString) return '';
+      
+      const specialCases = {
+        'office': 'Office',
+        'sunny-beach': 'Sunny Beach',
+        'sveti-vlas': 'Sveti Vlas',
+        'nesebar': 'Nesebar',
+        'burgas': 'Burgas',
+        'burgas-airport': 'Burgas Airport',
+        'sofia': 'Sofia',
+        'sofia-airport': 'Sofia Airport',
+        'varna': 'Varna',
+        'varna-airport': 'Varna Airport',
+        'plovdiv': 'Plovdiv',
+        'eleni': 'Eleni',
+        'ravda': 'Ravda'
+      };
+      
+      if (specialCases[locationString]) {
+        return specialCases[locationString];
+      }
+      
+      return locationString
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+    }
+    %>
+    <% function normalizeImage(img){
+         if(!img){ return '/images/luxury-showroom-orders.jpg'; }
+         let u = String(img).trim();
+         if (u.startsWith('http') || u.startsWith('//')) return u;
+         if (!u.startsWith('/')) u = '/' + u;
+         return encodeURI(u);
+       }
+    %>
+    <style>
+        .admin-dashboard {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: rgba(24, 24, 24, 0.8);
+            border: 2px solid #ffd23f;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(8px);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffd23f;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #fff;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .orders-section {
+            background: rgba(24, 24, 24, 0.6);
+            border: 2px solid #ffd23f;
+            border-radius: 10px;
+            padding: 1.5rem;
+            backdrop-filter: blur(8px);
+        }
+        
+        .orders-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #ffd23f;
+            padding-bottom: 1rem;
+        }
+        
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #fff;
+        }
+        
+        .orders-table th,
+        .orders-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        
+        .orders-table th {
+            background: rgba(255, 210, 63, 0.1);
+            color: #ffd23f;
+            font-weight: 600;
+        }
+        
+        .orders-table tr:hover {
+            background: rgba(255, 210, 63, 0.05);
+        }
+        
+        .car-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .car-image {
+            width: 40px;
+            height: 30px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-confirmed { background: #10b981; color: #fff; }
+        .status-pending { background: #f59e0b; color: #fff; }
+        .status-completed { background: #3b82f6; color: #fff; }
+        
+        .admin-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-admin {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ffd23f;
+            border-radius: 4px;
+            background: transparent;
+            color: #ffd23f;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-admin:hover {
+            background: #ffd23f;
+            color: #111;
+        }
+        
+        .btn-edit { border-color: #3b82f6; color: #3b82f6; }
+        .btn-edit:hover { background: #3b82f6; color: #fff; }
+        
+        .btn-delete { border-color: #ef4444; color: #ef4444; }
+        .btn-delete:hover { background: #ef4444; color: #fff; }
+        
+        @media (max-width: 768px) {
+            .admin-dashboard { padding: 1rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .orders-table { font-size: 0.8rem; }
+            .orders-table th,
+            .orders-table td { padding: 0.5rem 0.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/header') %>
+    
+    <div class="admin-dashboard">
+        <h1 style="color: #ffd23f; text-align: center; margin-bottom: 2rem;">LuxRide Admin Dashboard</h1>
+        <div style="display:flex; gap:.5rem; justify-content:center; margin-bottom:1.5rem;">
+            <a href="/admin/cars" class="btn-admin" style="border:1px solid #ffd23f; color:#ffd23f; text-decoration:none;">Manage Cars</a>
+            <a href="/admin/cars/new" class="btn-admin" style="border:1px solid #10b981; color:#10b981; text-decoration:none;">Add Car</a>
+            <a href="/admin/contacts" class="btn-admin" style="border:1px solid #3b82f6; color:#3b82f6; text-decoration:none;">Contacts</a>
+        </div>
+        
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number"><%= stats.totalOrders %></div>
+                <div class="stat-label">Total Orders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">€<%= stats.totalRevenue %></div>
+                <div class="stat-label">Total Revenue</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number"><%= stats.pendingOrders %></div>
+                <div class="stat-label">Pending Orders</div>
+            </div>
+        </div>
+        
+        <!-- Orders Section -->
+        <div class="orders-section">
+            <div class="orders-header">
+                <h2 style="color: #ffd23f; margin: 0;">Recent Orders</h2>
+                <a href="/admin/orders" class="btn-admin">View All Orders</a>
+            </div>
+            
+            <% if (orders && orders.length > 0) { %>
+                <div style="overflow-x: auto;">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Car</th>
+                                <th>Dates</th>
+                                <th>Location</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% orders.slice(0, 10).forEach(order => { %>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <div><strong><%= order.fullName %></strong></div>
+                                            <div style="font-size: 0.8rem; opacity: 0.7;"><%= order.email %></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <% if (order.carId) { %>
+                                            <div class="car-info">
+                                                <img src="<%= normalizeImage(order.carId.image) %>" alt="<%= order.carId.name %>" class="car-image" loading="lazy">
+                                                <div>
+                                                    <div><strong><%= order.carId.name %></strong></div>
+                                                    <div style="font-size: 0.8rem; opacity: 0.7;">€<%= order.carId.price %>/day</div>
+                                                </div>
+                                            </div>
+                                        <% } else { %>
+                                            <span style="opacity: 0.5;">Car not found</span>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <div><%= formatDate(order.pickupDate) %> <%= order.pickupTime %></div>
+                                            <div style="font-size: 0.8rem; opacity: 0.7;">to <%= formatDate(order.returnDate) %> <%= order.returnTime %></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <div><%= formatLocation(order.pickupLocation) %></div>
+                                            <div style="font-size: 0.8rem; opacity: 0.7;">→ <%= formatLocation(order.returnLocation) %></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong style="color: #ffd23f;">€<%= order.totalPrice %></strong>
+                                    </td>
+                                    <td>
+                                        <span class="status-badge status-confirmed">Confirmed</span>
+                                    </td>
+                                    <td>
+                                        <div class="admin-actions">
+                                            <a class="btn-admin btn-edit" href="/admin/orders/<%= order.id %>/edit">Edit</a>
+                                            <form action="/admin/orders/<%= order.id %>/delete" method="POST" onsubmit="return confirm('Delete this order? This will also free the car dates.');">
+                                                <input type="hidden" name="_csrf" value="<%= csrfToken || '' %>">
+                                                <button class="btn-admin btn-delete" type="submit">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } else { %>
+                <p style="text-align: center; color: #fff; opacity: 0.7;">No orders found.</p>
+            <% } %>
+        </div>
+    </div>
+    
+    <%- include('../partials/footer') %>
+    <script src="/js/mobileNav.js"></script>
+</body>
+</html>
+

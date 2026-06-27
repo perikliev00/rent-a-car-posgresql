@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/footer-pages.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="robots" content="noindex">
+    <style>
+      .policy-card {background:#111;border:2px solid #ffd23f;border-radius:12px;padding:1rem;margin:1rem 0}
+      .policy-card h3{margin-top:.25rem}
+    </style>
+  </head>
+  <body class="footer-page">
+    <%- include('partials/header') %>
+
+    <main class="footer-page-content">
+      <div class="footer-page-hero">
+        <h1>
+          <i class="fas fa-shield-alt"></i>
+          Responsible Disclosure
+        </h1>
+        <p>Help us keep LuxRide users safe by reporting security vulnerabilities responsibly.</p>
+      </div>
+
+      <section class="footer-page-section">
+        <h2>Scope</h2>
+        <div class="policy-card">
+          <p>We welcome reports for issues affecting our public website, APIs, and admin portal. Out-of-scope includes social engineering, physical attacks, and denial-of-service.</p>
+        </div>
+      </section>
+
+      <section class="footer-page-section">
+        <h2>Safe Harbor</h2>
+        <div class="policy-card">
+          <p>If you make a good-faith effort to comply with this policy while researching and reporting, we will not initiate legal action against you.</p>
+        </div>
+      </section>
+
+      <section class="footer-page-section">
+        <h2>How to Report</h2>
+        <div class="policy-card">
+          <ol style="padding-left:1.25rem;line-height:1.8">
+            <li>Describe the issue, impact, and affected endpoint or page.</li>
+            <li>Provide clear reproduction steps or a proof-of-concept.</li>
+            <li>Share minimal data necessary; avoid accessing other users' data.</li>
+            <li>Email: <a href="mailto:perikliev00@gmail.com">perikliev00@gmail.com</a></li>
+          </ol>
+        </div>
+      </section>
+
+      <div class="footer-page-cta">
+        <a href="/privacy" class="btn-cta">View Privacy</a>
+        <a href="/" class="btn-cta btn-secondary">Back to Home</a>
+      </div>
+    </main>
+
+    <%- include('partials/footer') %>
+    <script src="/js/mobileNav.js"></script>
+  </body>
+  </html>
+
+

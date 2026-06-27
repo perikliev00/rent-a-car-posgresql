@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/footer-pages.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="footer-page">
+    <%- include('partials/header') %>
+
+    <main class="footer-page-content">
+        <div class="footer-page-hero">
+            <h1><i class="fas fa-question-circle"></i> Frequently Asked Questions</h1>
+            <p>Find answers to common questions about our luxury car rental services.</p>
+        </div>
+
+        <div class="footer-page-section">
+            <h2>Booking & Reservations</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">How do I make a reservation?</div>
+                <div class="faq-answer">You can make a reservation through our website by selecting your pickup and return dates, locations, and preferred vehicle. You can also call us directly or visit our office.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">What documents do I need to rent a car?</div>
+                <div class="faq-answer">You'll need a valid driver's license, a major credit card, and a government-issued ID. International visitors may need an International Driving Permit.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Can I modify or cancel my reservation?</div>
+                <div class="faq-answer">Yes, you can modify or cancel your reservation up to 24 hours before pickup without penalty. Changes within 24 hours may incur fees.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">What is the minimum age to rent a luxury vehicle?</div>
+                <div class="faq-answer">The minimum age is 25 years old for most luxury vehicles. Some premium models may require drivers to be 30 or older.</div>
+            </div>
+        </div>
+
+        <div class="footer-page-section">
+            <h2>Pricing & Payment</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">What is included in the rental price?</div>
+                <div class="faq-answer">The rental price includes basic insurance coverage, unlimited mileage within the agreed area, and 24/7 roadside assistance.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Are there any additional fees?</div>
+                <div class="faq-answer">Additional fees may apply for delivery/pickup services, additional drivers, young driver surcharge, and optional insurance upgrades.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">What payment methods do you accept?</div>
+                <div class="faq-answer">We accept all major credit cards (Visa, MasterCard, American Express) and debit cards. Cash payments are not accepted for security reasons.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">When is payment processed?</div>
+                <div class="faq-answer">A security deposit is authorized when you pick up the vehicle. Final payment is processed upon return, after vehicle inspection.</div>
+            </div>
+        </div>
+
+        <div class="footer-page-section">
+            <h2>Vehicle & Service</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">What if the vehicle breaks down?</div>
+                <div class="faq-answer">We provide 24/7 roadside assistance. Contact us immediately, and we'll either repair the vehicle or provide a replacement at no extra cost.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Can I extend my rental period?</div>
+                <div class="faq-answer">Yes, you can extend your rental subject to vehicle availability. Contact us as soon as possible to arrange the extension.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">What happens if I return the car late?</div>
+                <div class="faq-answer">Late returns may incur additional daily charges. If you're more than 3 hours late, you'll be charged for an additional day.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Are pets allowed in rental vehicles?</div>
+                <div class="faq-answer">Pets are allowed with advance notice and a pet cleaning fee. The vehicle must be returned in the same condition as received.</div>
+            </div>
+        </div>
+
+        <div class="footer-page-section">
+            <h2>Insurance & Safety</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">What insurance coverage is included?</div>
+                <div class="faq-answer">Basic coverage includes third-party liability and theft protection. Additional comprehensive coverage options are available.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">What if there's an accident?</div>
+                <div class="faq-answer">Contact the police and us immediately. Do not admit fault. We'll guide you through the claims process and provide assistance.</div>
+            </div>
+        </div>
+
+        <div class="footer-page-cta">
+            <h2>Still Have Questions?</h2>
+            <p>Our customer service team is here to help!</p>
+            <a href="/contacts" class="btn-cta">
+                <i class="fas fa-phone"></i>
+                Contact Support
+            </a>
+            <a href="/" class="btn-cta btn-secondary">
+                <i class="fas fa-home"></i>
+                Back to Home
+            </a>
+        </div>
+    </main>
+
+    <%- include('partials/footer') %>
+
+    <script src="/js/mobileNav.js"></script>
+</body>
+</html>

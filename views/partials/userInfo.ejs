@@ -1,0 +1,67 @@
+<%- include('./validationBanner') %>
+<form class="user-details-form" action="/create-checkout-session" method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken || '' %>">
+    <h2>Enter Your Details</h2>
+    <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            placeholder="Enter your full name"
+            value="<%= fullName || '' %>"
+        >
+    </div>
+    <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <input
+            type="tel"
+            id="phoneNumber"
+            name="phoneNumber"
+            placeholder="Enter your phone number"
+            value="<%= phoneNumber || '' %>"
+        >
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            value="<%= email || '' %>"
+        >
+    </div>
+    <div class="form-group">
+        <label for="address">Address</label>
+        <textarea
+            id="address"
+            name="address"
+            placeholder="Enter your address"
+            rows="3"
+        ><%= address || '' %></textarea>
+    </div>
+    <div class="form-group">
+        <label for="hotelName">Hotel Name</label>
+        <input
+            type="text"
+            id="hotelName"
+            name="hotelName"
+            placeholder="Enter your hotel name"
+            value="<%= hotelName || '' %>"
+        >
+    </div>
+    <input type="hidden" name="carId" value="<%= car.id %>" hidden>
+    <input type="hidden" name="pickupDate" value="<%= pickupDateISO || pickupDate %>" hidden>
+    <input type="hidden" name="pickupTime" value="<%= pickupTime %>" hidden>
+    <input type="hidden" name="returnDate" value="<%= returnDateISO || returnDate %>" hidden>
+    <input type="hidden" name="returnTime" value="<%= returnTime %>" hidden>
+    <input type="hidden" name="pickupLocation" value="<%= pickupLocation %>" hidden>
+    <input type="hidden" name="returnLocation" value="<%= returnLocation %>" hidden>
+    <input type="hidden" name="rentalDays" value="<%= rentalDays %>" hidden>
+    <input type="hidden" name="deliveryPrice" value="<%= deliveryPrice %>" hidden>
+    <input type="hidden" name="returnPrice" value="<%= returnPrice %>" hidden>
+    <input type="hidden" name="totalPrice" value="<%= totalPrice %>" hidden>
+
+    <button type="submit" class="new-btn">Confirm Order</button>
+</form>

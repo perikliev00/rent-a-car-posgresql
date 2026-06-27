@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visit Our Location - Rent A Car</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/animatedBackground.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/support-pages.css">
+    <link rel="preload" as="image" href="/images/audi-support.jpg">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</head>
+<body class="support-page">
+    <%- include('partials/header') %>
+
+    <section class="support-hero">
+        <div class="container">
+            <h1><i class="fas fa-map-marker-alt"></i> Visit Our Showroom</h1>
+            <p>Experience luxury cars in person</p>
+        </div>
+    </section>
+
+    <section class="support-content">
+        <div class="container">
+            <div class="support-grid">
+                <div class="main-content">
+                    <h2>Our Locations</h2>
+                    
+                    <div class="locations-grid">
+                        <div class="location-card main-location">
+                            <div class="location-header">
+                                <h3><i class="fas fa-building"></i> Main Showroom</h3>
+                                <span class="location-badge">Flagship</span>
+                            </div>
+                            <div class="location-details">
+                                <p class="address">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    ж.к. Лазур, бул. „Сан Стефано" 8
+                                </p>
+                                <div class="location-features">
+                                    <span><i class="fas fa-car"></i> 25+ Luxury Cars</span>
+                                    <span><i class="fas fa-coffee"></i> Customer Lounge</span>
+                                    <span><i class="fas fa-wifi"></i> Free WiFi</span>
+                                    <span><i class="fas fa-parking"></i> Free Parking</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="location-card">
+                            <div class="location-header">
+                                <h3><i class="fas fa-plane"></i> Airport Branch</h3>
+                            </div>
+                            <div class="location-details">
+                                <p class="address">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    ж.к. Лазур, бул. „Сан Стефано" 8
+                                </p>
+                                <div class="location-features">
+                                    <span><i class="fas fa-car"></i> 15+ Premium Cars</span>
+                                    <span><i class="fas fa-shuttle-van"></i> Shuttle Service</span>
+                                    <span><i class="fas fa-clock"></i> Express Pickup</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="location-card">
+                            <div class="location-header">
+                                <h3><i class="fas fa-city"></i> Downtown Office</h3>
+                            </div>
+                            <div class="location-details">
+                                <p class="address">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    ж.к. Лазур, бул. „Сан Стефано" 8
+                                </p>
+                                <div class="location-features">
+                                    <span><i class="fas fa-car"></i> 10+ Business Cars</span>
+                                    <span><i class="fas fa-subway"></i> Metro Access</span>
+                                    <span><i class="fas fa-briefcase"></i> Corporate Rates</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="visit-tips">
+                        <h3>Planning Your Visit</h3>
+                        <div class="tips-grid">
+                            <div class="tip-card">
+                                <i class="fas fa-calendar-check"></i>
+                                <h4>Book Appointment</h4>
+                                <p>Schedule ahead for personalized service and test drives</p>
+                            </div>
+                            <div class="tip-card">
+                                <i class="fas fa-id-card"></i>
+                                <h4>Bring Documents</h4>
+                                <p>Valid driver's license and credit card required</p>
+                            </div>
+                            <div class="tip-card">
+                                <i class="fas fa-clock"></i>
+                                <h4>Allow Time</h4>
+                                <p>Allow 30-45 minutes for vehicle inspection and paperwork</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar">
+                    <div class="hours-card">
+                        <h3><i class="fas fa-clock"></i> Opening Hours</h3>
+                        <div class="hours-list">
+                            <div class="hour-item">
+                                <span>Monday - Friday</span>
+                                <span>8:00 AM - 8:00 PM</span>
+                            </div>
+                            <div class="hour-item">
+                                <span>Saturday</span>
+                                <span>9:00 AM - 6:00 PM</span>
+                            </div>
+                            <div class="hour-item">
+                                <span>Sunday</span>
+                                <span>10:00 AM - 5:00 PM</span>
+                            </div>
+                        </div>
+                        <p class="note">Airport branch operates 24/7</p>
+                    </div>
+                    
+                    <div class="directions">
+                        <h3><i class="fas fa-route"></i> Get Directions</h3>
+                        <div class="direction-buttons">
+                            <a href="#" class="direction-btn">
+                                <i class="fas fa-map"></i> Google Maps
+                            </a>
+                            <a href="#" class="direction-btn">
+                                <i class="fas fa-apple"></i> Apple Maps
+                            </a>
+                            <a href="#" class="direction-btn">
+                                <i class="fab fa-waze"></i> Waze
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <h3>Before You Visit</h3>
+                        <a href="/support/phone" class="action-btn">
+                            <i class="fas fa-phone"></i> Call Ahead
+                        </a>
+                        <a href="/fleet" class="action-btn">
+                            <i class="fas fa-car"></i> Browse Fleet
+                        </a>
+                        <a href="/" class="action-btn">
+                            <i class="fas fa-calendar"></i> Check Availability
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+    <script src="/js/mobileNav.js"></script>
+</body>
+</html>

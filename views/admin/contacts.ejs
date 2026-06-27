@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - LuxRide</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <style>
+    .wrap { max-width:1200px; margin:2rem auto; padding:1rem; }
+    .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:2px solid #ffd23f; padding-bottom:.75rem; }
+    .title { color:#ffd23f; margin:0; }
+    .table { width:100%; border-collapse: collapse; color:#fff; }
+    .table th, .table td { padding:.75rem; border-bottom:1px solid #333; vertical-align: top; }
+    .table th { color:#ffd23f; text-align:left; background:rgba(255,210,63,.08); }
+    .status-new { background:#f59e0b; color:#111; padding:.25rem .5rem; border-radius:6px; font-weight:700; }
+    .status-ready { background:#3b82f6; color:#fff; padding:.25rem .5rem; border-radius:6px; font-weight:700; }
+    .status-done { background:#10b981; color:#fff; padding:.25rem .5rem; border-radius:6px; font-weight:700; }
+    .actions { display:flex; gap:.4rem; flex-wrap:wrap; }
+    .btn { padding:.4rem .7rem; border:1px solid #ffd23f; color:#ffd23f; background:transparent; border-radius:6px; cursor:pointer; text-decoration:none; font-size:.9rem; }
+    .btn-del { border-color:#ef4444; color:#ef4444; }
+    .meta { font-size:.85rem; opacity:.8; }
+    .message { white-space:pre-wrap; }
+  </style>
+</head>
+<body>
+  <%- include('../partials/header') %>
+  <main class="wrap">
+    <div class="header">
+      <h1 class="title">Contact Messages</h1>
+      <a href="/admin-dashboard" class="btn">← Back to Dashboard</a>
+    </div>
+    <% if (contacts && contacts.length) { %>
+      <div style="overflow-x:auto;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>From</th>
+              <th>Subject</th>
+              <th>Message</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% contacts.forEach(c => { %>
+            <tr>
+              <td>
+                <div><strong><%= c.name %></strong></div>
+                <div class="meta"><%= c.email %><% if (c.phone) { %> • <%= c.phone %><% } %></div>
+                <div class="meta"><%= new Date(c.createdAt).toLocaleString() %></div>
+              </td>
+              <td><%= c.subject %></td>
+              <td class="message"><%= c.message %></td>
+              <td>
+                <% const cls = c.status === 'done' ? 'status-done' : (c.status === 'ready' ? 'status-ready' : 'status-new'); %>
+                <span class="<%= cls %>"><%= c.status %></span>
+              </td>
+              <td>
+                <div class="actions">
+                  <form action="/admin/contacts/<%= c.id %>/status" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken || '' %>">
+                    <input type="hidden" name="status" value="ready" />
+                    <button class="btn" type="submit">Mark Ready</button>
+                  </form>
+                  <form action="/admin/contacts/<%= c.id %>/status" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken || '' %>">
+                    <input type="hidden" name="status" value="done" />
+                    <button class="btn" type="submit">Mark Done</button>
+                  </form>
+                  <form action="/admin/contacts/<%= c.id %>/delete" method="POST" onsubmit="return confirm('Delete this message?');">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken || '' %>">
+                    <button class="btn btn-del" type="submit">Delete</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <p style="color:#fff; opacity:.8;">No contact messages yet.</p>
+    <% } %>
+  </main>
+  <%- include('../partials/footer') %>
+  <script src="/js/mobileNav.js"></script>
+  </body>
+  </html>
+
+

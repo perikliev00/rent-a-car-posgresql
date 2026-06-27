@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Support - Rent A Car</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/animatedBackground.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/support-pages.css">
+    <link rel="preload" as="image" href="/images/audi-support.jpg">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</head>
+<body class="support-page">
+    <%- include('partials/header') %>
+
+    <section class="support-hero">
+        <div class="container">
+            <h1><i class="fas fa-envelope"></i> Email Support</h1>
+            <p>Get detailed help via email</p>
+        </div>
+    </section>
+
+    <section class="support-content">
+        <div class="container">
+            <div class="support-grid">
+                <div class="main-content">
+                    <h2>Send Us an Email</h2>
+                    
+                    <form class="email-form" action="/support/email" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken || '' %>">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Choose a topic</option>
+                                <option value="booking">New Booking Inquiry</option>
+                                <option value="modification">Modify Existing Booking</option>
+                                <option value="cancellation">Cancellation Request</option>
+                                <option value="payment">Payment Issues</option>
+                                <option value="vehicle">Vehicle Concerns</option>
+                                <option value="insurance">Insurance Questions</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="priority">Priority Level</label>
+                            <select id="priority" name="priority">
+                                <option value="low">Low - General inquiry</option>
+                                <option value="medium" selected>Medium - Standard request</option>
+                                <option value="high">High - Urgent matter</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" rows="6" required placeholder="Please provide as much detail as possible to help us assist you better..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Email
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="sidebar">
+                    <div class="email-info">
+                        <h3><i class="fas fa-inbox"></i> Email Addresses</h3>
+                        <div class="email-list">
+                            <div class="email-item">
+                                <strong>General Inquiries</strong>
+                                <span>hello@rentacar.com</span>
+                            </div>
+                            <div class="email-item">
+                                <strong>Bookings & Reservations</strong>
+                                <span>bookings@rentacar.com</span>
+                            </div>
+                            <div class="email-item">
+                                <strong>Customer Support</strong>
+                                <span>support@rentacar.com</span>
+                            </div>
+                            <div class="email-item">
+                                <strong>Business Inquiries</strong>
+                                <span>business@rentacar.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="response-times">
+                        <h3><i class="fas fa-clock"></i> Response Times</h3>
+                        <div class="time-list">
+                            <div class="time-item">
+                                <span class="priority high">High Priority</span>
+                                <span>Within 2 hours</span>
+                            </div>
+                            <div class="time-item">
+                                <span class="priority medium">Medium Priority</span>
+                                <span>Within 6 hours</span>
+                            </div>
+                            <div class="time-item">
+                                <span class="priority low">Low Priority</span>
+                                <span>Within 24 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <h3>Other Options</h3>
+                        <a href="/support/phone" class="action-btn">
+                            <i class="fas fa-phone"></i> Call Us
+                        </a>
+                        <a href="/support/chat" class="action-btn">
+                            <i class="fas fa-comments"></i> Live Chat
+                        </a>
+                        <a href="/support/visit" class="action-btn">
+                            <i class="fas fa-map-marker-alt"></i> Visit Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+    <script src="/js/mobileNav.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/footer-pages.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="footer-page">
+  <%- include('partials/header') %>
+
+  <main class="footer-page-content">
+    <div class="footer-page-hero">
+      <h1><i class="fas fa-handshake"></i> Code of Conduct</h1>
+      <p>Guidelines for respectful collaboration at LuxRide.</p>
+    </div>
+
+    <section class="footer-page-section">
+      <h2>Our Principles</h2>
+      <ul>
+        <li>Be respectful and inclusive.</li>
+        <li>Assume good intent and seek to understand.</li>
+        <li>Protect customer data and privacy at all times.</li>
+      </ul>
+    </section>
+
+    <section class="footer-page-section">
+      <h2>Unacceptable Behavior</h2>
+      <ul>
+        <li>Harassment, discrimination, or hate speech.</li>
+        <li>Sharing confidential information without authorization.</li>
+        <li>Unsafe driving or misuse of company vehicles.</li>
+      </ul>
+    </section>
+
+    <section class="footer-page-section">
+      <h2>Reporting</h2>
+      <p>Report concerns to <a href="mailto:perikliev00@gmail.com">perikliev00@gmail.com</a> or through HR channels. We take reports seriously and investigate promptly.</p>
+    </section>
+
+    <div class="footer-page-cta">
+      <a href="/privacy" class="btn-cta">Read Privacy</a>
+      <a href="/" class="btn-cta btn-secondary">Back to Home</a>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/mobileNav.js"></script>
+</body>
+</html>
+
+

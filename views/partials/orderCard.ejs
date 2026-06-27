@@ -1,0 +1,28 @@
+<div class="card car-card">
+    <img src="<%= car.image %>" alt="<%= car.name %>" loading="lazy" decoding="async">
+
+    <div class="card-body">
+        <h3><%= car.name %></h3>
+
+        <ul class="car-specs">
+            <li>Transmission: <%= car.transmission %></li>
+            <li>Fuel Type: <%= car.fuelType %></li>
+            <li>Seats: <%= car.seats %></li>
+        </ul>
+
+        <div class="pricing">
+            <span class="daily">Price per day: $<%= car.price %></span>
+            <% if (pickupLocation !== 'office' || returnLocation !== 'office') { %>
+                <span class="delivery">Delivery Price: $<%= deliveryPrice %></span>
+                <span class="return">Return Price: $<%= returnPrice %></span>
+            <% } %>
+            <span class="total">
+                Total for <%= rentalDays %> day<%= rentalDays > 1 ? 's' : '' %>:
+                $<%= car.totalPrice %>
+                <% if (pickupLocation !== 'office' || returnLocation !== 'office') { %>
+                    (including delivery and return)
+                <% } %>
+            </span>
+        </div>
+    </div>
+</div>

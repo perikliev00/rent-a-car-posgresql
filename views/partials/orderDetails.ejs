@@ -1,0 +1,97 @@
+<!-- Order Details Section -->
+<div class="order-details-container">
+    <div class="order-header">
+        <h1><i class="fas fa-car"></i> Order Details for <%= car.name %></h1>
+    </div>
+
+    <div class="order-content">
+        <div class="car-section">
+            <div class="car-image-container">
+                <img src="<%= car.image %>" alt="<%= car.name %>" class="car-image">
+             
+            </div>
+            <div class="car-info">
+                <h3><%= car.name %></h3>
+                <p class="car-category"><%= car.category %></p>
+                <div class="car-features">
+                    <span class="feature-tag"><i class="fas fa-users"></i> <%= car.seats || '5' %> Seats</span>
+                    <span class="feature-tag"><i class="fas fa-cog"></i> Automatic</span>
+                    <span class="feature-tag"><i class="fas fa-snowflake"></i> A/C</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-info-grid">
+            <div class="info-section">
+                <h3><i class="fas fa-calendar-alt"></i> Rental Period</h3>
+                <div class="info-cards">
+                    <div class="info-card pickup">
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4>Pickup</h4>
+                            <p class="date"><%= pickupDate %></p>
+                            <p class="time"><%= pickupTime %></p>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> <%= pickupLocation %></p>
+                        </div>
+                    </div>
+                    <div class="info-card return">
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4>Return</h4>
+                            <p class="date"><%= returnDate %></p>
+                            <p class="time"><%= returnTime %></p>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> <%=returnLocation %></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="rental-duration">
+                    <i class="fas fa-clock"></i>
+                    <span><%= rentalDays %> Days Rental</span>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3><i class="fas fa-dollar-sign"></i> Pricing Breakdown</h3>
+                <div class="pricing-details">
+                    <% const baseRental = (totalPrice - deliveryPrice - returnPrice); %>
+                    <% const perDay = rentalDays ? (baseRental / rentalDays) : baseRental; %>
+                    <div class="price-item">
+                        <span class="price-label">Per Day</span>
+                        <span class="price-value">$<%= perDay.toFixed(2) %> / day</span>
+                    </div>
+                    <div class="price-item">
+                        <span class="price-label">Base Rental</span>
+                        <span class="price-value">$<%= baseRental.toFixed(2) %></span>
+                    </div>
+                    <div class="price-item">
+                        <span class="price-label">Delivery Fee</span>
+                        <span class="price-value">$<%= Number(deliveryPrice).toFixed(2) %></span>
+                    </div>
+                    <div class="price-item">
+                        <span class="price-label">Return Fee</span>
+                        <span class="price-value">$<%= Number(returnPrice).toFixed(2) %></span>
+                    </div>
+                    <div class="price-item total">
+                        <span class="price-label">Total Amount</span>
+                        <span class="price-value">$<%= Number(totalPrice).toFixed(2) %></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-actions">
+            <button class="action-btn secondary" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                Back to Search
+            </button>
+            <button class="action-btn secondary" onclick="printOrder()">
+                <i class="fas fa-print"></i>
+                Print Details
+            </button>
+        </div>
+    </div>
+</div>

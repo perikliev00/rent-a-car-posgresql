@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <style>
+    .card input, .card select {
+      background:#0f0f0f;
+      border:2px solid #ffd23f;
+      color:#ffd23f;
+      border-radius:8px;
+      padding:.45rem .55rem;
+      width:100%;
+      box-sizing:border-box;
+    }
+    .card label { color:#ffd23f; font-weight:700; }
+    .card input::placeholder { color:#ffd23fcc; }
+    .card select:focus, .card input:focus { outline:none; box-shadow:0 0 0 2px rgba(255,210,63,.35); }
+    .form-grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:.75rem; }
+    .row { display:flex; align-items:center; gap:.4rem; }
+    .row label { min-width: 120px; font-size:.95rem; line-height:1; }
+    @media (max-width: 720px) { .form-grid { grid-template-columns: 1fr; } .row label { min-width:110px; } }
+    @media (max-width: 360px) { .row label { min-width:95px; font-size:.9rem; } .card input, .card select { padding:.4rem .5rem; } }
+  </style>
+</head>
+<body>
+  <%- include('../partials/header') %>
+  <main class="admin-orders" style="max-width: 900px; margin: 2rem auto;">
+    <h1 class="page-title" style="color:#ffd23f;">Edit Order</h1>
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="banner error dynamic" style="border:2px solid #ef4444;color:#ef4444;font-weight:800;padding:.6rem .8rem;border-radius:8px;margin:.5rem 0 1rem 0;background:rgba(239,68,68,.1);"><%= error %></div>
+    <% } else { %>
+      <div class="banner error dynamic" style="display:none;border:2px solid #ef4444;color:#ef4444;font-weight:800;padding:.6rem .8rem;border-radius:8px;margin:.5rem 0 1rem 0;background:rgba(239,68,68,.1);"></div>
+    <% } %>
+    <form action="/admin/orders/<%= order.id %>/edit" method="POST" class="card" style="padding:1rem;border:2px solid #ffd23f;border-radius:10px;background:rgba(24,24,24,.6);">
+      <input type="hidden" name="_csrf" value="<%= csrfToken || '' %>">
+      <div class="form-grid">
+        
+        <div class="row">
+          <label>Pickup Date</label>
+          <input type="date" name="pickupDate" value="<%= pickupDateISO %>" required>
+        </div>
+        <div class="row">
+          <label>Pickup Time</label>
+          <input type="time" name="pickupTime" value="<%= pickupTimeHHMM %>" list="timeOptions" required>
+        </div>
+        <div class="row">
+          <label>Return Date</label>
+          <input type="date" name="returnDate" value="<%= returnDateISO %>" required>
+        </div>
+        <div class="row">
+          <label>Return Time</label>
+          <input type="time" name="returnTime" value="<%= returnTimeHHMM %>" list="timeOptions" required>
+        </div>
+        <div class="row">
+          <label>Pickup Location</label>
+          <select name="pickupLocation" onchange="window.recomputeOrderTotals && window.recomputeOrderTotals()">
+            <option value="">Select location</option>
+            <option value="office" <%= order.pickupLocation==='office'?'selected':'' %>>Office</option>
+            <option value="sunny-beach" <%= order.pickupLocation==='sunny-beach'?'selected':'' %>>Sunny Beach</option>
+            <option value="sveti-vlas" <%= order.pickupLocation==='sveti-vlas'?'selected':'' %>>Sveti Vlas</option>
+            <option value="nesebar" <%= order.pickupLocation==='nesebar'?'selected':'' %>>Nesebar</option>
+            <option value="burgas" <%= order.pickupLocation==='burgas'?'selected':'' %>>Burgas</option>
+            <option value="burgas-airport" <%= order.pickupLocation==='burgas-airport'?'selected':'' %>>Burgas Airport</option>
+            <option value="sofia" <%= order.pickupLocation==='sofia'?'selected':'' %>>Sofia</option>
+            <option value="sofia-airport" <%= order.pickupLocation==='sofia-airport'?'selected':'' %>>Sofia Airport</option>
+            <option value="varna" <%= order.pickupLocation==='varna'?'selected':'' %>>Varna</option>
+            <option value="varna-airport" <%= order.pickupLocation==='varna-airport'?'selected':'' %>>Varna Airport</option>
+            <option value="plovdiv" <%= order.pickupLocation==='plovdiv'?'selected':'' %>>Plovdiv</option>
+            <option value="eleni" <%= order.pickupLocation==='eleni'?'selected':'' %>>Eleni</option>
+            <option value="ravda" <%= order.pickupLocation==='ravda'?'selected':'' %>>Ravda</option>
+          </select>
+        </div>
+        <div class="row">
+          <label>Return Location</label>
+          <select name="returnLocation" onchange="window.recomputeOrderTotals && window.recomputeOrderTotals()">
+            <option value="">Select location</option>
+            <option value="office" <%= order.returnLocation==='office'?'selected':'' %>>Office</option>
+            <option value="sunny-beach" <%= order.returnLocation==='sunny-beach'?'selected':'' %>>Sunny Beach</option>
+            <option value="sveti-vlas" <%= order.returnLocation==='sveti-vlas'?'selected':'' %>>Sveti Vlas</option>
+            <option value="nesebar" <%= order.returnLocation==='nesebar'?'selected':'' %>>Nesebar</option>
+            <option value="burgas" <%= order.returnLocation==='burgas'?'selected':'' %>>Burgas</option>
+            <option value="burgas-airport" <%= order.returnLocation==='burgas-airport'?'selected':'' %>>Burgas Airport</option>
+            <option value="sofia" <%= order.returnLocation==='sofia'?'selected':'' %>>Sofia</option>
+            <option value="sofia-airport" <%= order.returnLocation==='sofia-airport'?'selected':'' %>>Sofia Airport</option>
+            <option value="varna" <%= order.returnLocation==='varna'?'selected':'' %>>Varna</option>
+            <option value="varna-airport" <%= order.returnLocation==='varna-airport'?'selected':'' %>>Varna Airport</option>
+            <option value="plovdiv" <%= order.returnLocation==='plovdiv'?'selected':'' %>>Plovdiv</option>
+            <option value="eleni" <%= order.returnLocation==='eleni'?'selected':'' %>>Eleni</option>
+            <option value="ravda" <%= order.returnLocation==='ravda'?'selected':'' %>>Ravda</option>
+          </select>
+        </div>
+        <div class="row">
+          <label>Hotel Name (optional)</label>
+          <input type="text" name="hotelName" value="<%= order.hotelName || '' %>" placeholder="<%= order.hotelName || 'Hotel name' %>">
+        </div>
+        <div class="row">
+          <label>Rental Days</label>
+          <input type="number" min="1" name="rentalDays" value="<%= order.rentalDays || '' %>" placeholder="<%= order.rentalDays || '' %>">
+        </div>
+        <div class="row">
+          <label>Delivery Price</label>
+          <input type="number" step="0.01" name="deliveryPrice" value="<%= order.deliveryPrice || '' %>" placeholder="<%= order.deliveryPrice || '' %>">
+        </div>
+        <div class="row">
+          <label>Return Price</label>
+          <input type="number" step="0.01" name="returnPrice" value="<%= order.returnPrice || '' %>" placeholder="<%= order.returnPrice || '' %>">
+        </div>
+        <div class="row">
+          <label>Total Price</label>
+          <input type="number" step="0.01" name="totalPrice" value="<%= order.totalPrice || '' %>" placeholder="<%= order.totalPrice || '' %>">
+        </div>
+        <div class="row">
+          <label>Car</label>
+          <select name="carId">
+            <% (cars||[]).forEach(function(c){ %>
+              <option value="<%= c.id %>"
+                <%= (String(order.carId && order.carId.id ? order.carId.id : order.carId)===String(c.id)) ? 'selected' : '' %>
+                data-price="<%= c.price || '' %>"
+                data-tier1_3="<%= c.priceTier_1_3 || '' %>"
+                data-tier7_31="<%= c.priceTier_7_31 || '' %>"
+                data-tier31_plus="<%= c.priceTier_31_plus || '' %>">
+                <%= c.name %>
+              </option>
+            <% }) %>
+          </select>
+        </div>
+        <div style="grid-column:1 / -1; border-top:1px dashed #333; padding-top:1rem; display:grid; grid-template-columns: 1fr; gap:.5rem;">
+          <div class="row"><label>Full Name</label><input type="text" name="fullName" value="<%= order.fullName || '' %>" placeholder="Customer name" required></div>
+          <div class="row"><label>Phone Number</label><input type="text" name="phoneNumber" value="<%= order.phoneNumber || '' %>" placeholder="Customer phone" required></div>
+          <div class="row"><label>Email</label><input type="email" name="email" value="<%= order.email || '' %>" placeholder="Customer email" required></div>
+          <div class="row"><label>Address</label><input type="text" name="address" value="<%= order.address || '' %>" placeholder="Customer address" required></div>
+        </div>
+      </div>
+      <div style="margin-top:1rem;display:flex;gap:.5rem;">
+        <a href="/admin/orders" class="btn-admin" style="border:1px solid #999;color:#999;">Cancel</a>
+        <button class="btn-admin" style="border-color:#10b981;color:#10b981;">Save</button>
+      </div>
+      <div style="margin-top:1rem;opacity:.7;">
+        <small>On save, the matching date range in the car will be updated too.</small>
+      </div>
+    </form>
+  <datalist id="timeOptions">
+    <% for (var h=0; h<24; h++) { %>
+      <% for (var m=0; m<60; m+=30) { var hh = String(h).padStart(2,'0'); var mm = String(m).padStart(2,'0'); %>
+        <option value="<%= hh %>:<%= mm %>"></option>
+      <% } %>
+    <% } %>
+  </datalist>
+  </main>
+  <%- include('../partials/footer') %>
+  <script>
+    (function(){
+      const q = (sel) => document.querySelector(sel);
+      const byName = (name) => q(`input[name="${name}"]`) || q(`select[name="${name}"]`);
+
+      const pickupDateEl = byName('pickupDate');
+      const returnDateEl = byName('returnDate');
+      const pickupTimeEl = byName('pickupTime');
+      const returnTimeEl = byName('returnTime');
+      const pickupLocEl  = byName('pickupLocation');
+      const returnLocEl  = byName('returnLocation');
+      const rentalDaysEl = byName('rentalDays');
+      const deliveryEl   = byName('deliveryPrice');
+      const returnEl     = byName('returnPrice');
+      const totalEl      = byName('totalPrice');
+      const carEl        = byName('carId');
+
+      // same price table as Add Order
+      const priceMap = {
+        'office': 0,
+        'sunny-beach': 25,
+        'sveti-vlas': 30,
+        'nesebar': 30,
+        'burgas': 40,
+        'burgas-airport': 50,
+        'sofia': 100,
+        'sofia-airport': 120,
+        'varna': 80,
+        'varna-airport': 90,
+        'plovdiv': 70,
+        'eleni': 35,
+        'ravda': 20
+      };
+
+      function parseDT(dateEl, timeEl, fallbackTime){
+        const d = (dateEl.value || '').trim();
+        const t = (timeEl.value || fallbackTime || '00:00').trim();
+        if (!d) return NaN;
+        return new Date(`${d}T${t}`);
+      }
+
+      function computeDays(){
+        const s = parseDT(pickupDateEl, pickupTimeEl, '00:00');
+        const e = parseDT(returnDateEl,  returnTimeEl,  '23:59');
+        if (isNaN(s) || isNaN(e)) return Number(rentalDaysEl.value || 1);
+        const days = Math.max(1, Math.floor((e - s) / 86400000));
+        if (rentalDaysEl) rentalDaysEl.value = days;
+        return days;
+      }
+
+      function computeFees(){
+        const dKey = String(pickupLocEl.value || '').toLowerCase();
+        const rKey = String(returnLocEl.value || '').toLowerCase();
+        const d = priceMap[dKey] || 0;
+        const r = priceMap[rKey] || 0;
+        deliveryEl.value = d;
+        returnEl.value = r;
+        return { d, r };
+      }
+
+      function perDay(days){
+        if (!carEl || !carEl.options || carEl.selectedIndex < 0) return 0;
+        const opt = carEl.options[carEl.selectedIndex];
+        const base = Number(opt.dataset.tier1_3 || opt.dataset.price || 0);
+        const t7   = Number(opt.dataset.tier7_31 || 0);
+        const t31  = Number(opt.dataset.tier31_plus || 0);
+        if (days <= 3) return base;
+        if (days <= 7) return t7 || base;
+        if (days <= 31) return t7 || base;
+        return t31 || t7 || base;
+      }
+
+      function recompute(){
+        // Client-side recompute retained only for manual adjustments triggered by user,
+        // but initial value comes from the server (DB) and is not overridden on page load.
+        const days = computeDays();
+        const { d, r } = computeFees();
+        const pd = perDay(days);
+        const base = pd * days;
+        totalEl.value = (base + Number(d) + Number(r)).toFixed(2);
+      }
+
+      function bind(el){ if (!el) return; el.addEventListener('change', recompute); el.addEventListener('input', recompute); el.addEventListener('blur', recompute); }
+      [pickupDateEl, returnDateEl, pickupTimeEl, returnTimeEl, pickupLocEl, returnLocEl, rentalDaysEl, deliveryEl, returnEl, totalEl, carEl].forEach(bind);
+
+      // NOTE: no automatic recompute() on initial load so the UI shows DB value exactly.
+    })();
+  </script>
+  <script src="/js/mobileNav.js"></script>
+  </body>
+</html>
+
+
+

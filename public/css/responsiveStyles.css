@@ -1,0 +1,279 @@
+/* -------------------------------------------------
+   General Styles for New Components
+--------------------------------------------------*/
+.new-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Modern and elegant font */
+    color: #444;
+    background: #f4f4f9; /* Light background for contrast */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the content horizontally */
+}
+
+/* -------------------------------------------------
+   Order Details Section
+--------------------------------------------------*/
+.order-details-container {
+    background: linear-gradient(135deg, #ffffff, #f9f9f9); /* Subtle gradient */
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 1.2rem;
+    margin: 1rem auto;
+    max-width: 600px; /* Smaller width for compact design */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    text-align: center; /* Center the text inside */
+    overflow: hidden; /* Ensure content stays inside the box */
+}
+
+.order-details-container h1 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Montserrat', sans-serif; /* Fancy font for headings */
+}
+
+.order-details-container img.car-image {
+    display: block;
+    max-width: 60%; /* Smaller image for compact design */
+    height: auto;
+    margin: 1rem auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow for focus */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.order-details-container img.car-image:hover {
+    transform: scale(1.05); /* Slight zoom effect */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.order-details-container ul.order-details {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    text-align: left;
+}
+
+.order-details-container ul.order-details li {
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+    padding: 0.6rem;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center the text horizontally */
+    font-weight: 500;
+    color: #555;
+    font-family: 'Roboto', sans-serif; /* Clean font for details */
+}
+
+.order-details-container ul.order-details li span {
+    font-weight: 700;
+    color: #222;
+}
+
+/* -------------------------------------------------
+   Buttons
+--------------------------------------------------*/
+.new-btn {
+    display: inline-block;
+    padding: 0.7rem 1.2rem;
+    background: linear-gradient(90deg, #6a11cb, #2575fc); /* Fancy gradient button */
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 50px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.new-btn:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb); /* Reverse gradient */
+    transform: translateY(-3px); /* Lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* -------------------------------------------------
+   Responsive Design
+--------------------------------------------------*/
+
+/* For screens below 768px */
+@media (max-width: 768px) {
+    .order-details-container {
+        padding: 1rem;
+        max-width: 90%; /* Adjust width for smaller screens */
+    }
+
+    .order-details-container h1 {
+        font-size: 1.4rem;
+    }
+
+    .order-details-container img.car-image {
+        max-width: 70%; /* Adjust image size for smaller screens */
+    }
+
+    .order-details-container ul.order-details li {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+
+    .new-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* For screens below 480px */
+@media (max-width: 480px) {
+    .order-details-container h1 {
+        font-size: 1.2rem;
+    }
+
+    .order-details-container ul.order-details li {
+        font-size: 0.8rem;
+        padding: 0.4rem;
+    }
+
+    .new-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
+/* -------------------------------------------------
+   User Details Form Section
+--------------------------------------------------*/
+.user-details-form {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    text-align: left;
+    width: 100%;
+}
+
+.user-details-form h2 {
+    font-size: 1.6rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif; /* Fancy font for headings */
+}
+
+.user-details-form .form-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the content horizontally */
+    justify-content: center; /* Center the content vertically */
+}
+
+.user-details-form label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.user-details-form input,
+.user-details-form textarea {
+    width: 80%;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    resize: none;
+    
+}
+
+.user-details-form input:focus,
+.user-details-form textarea:focus {
+    outline: none;
+    border-color: #6a11cb;
+    box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+}
+
+.user-details-form button {
+    display: inline-block;
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(90deg, #6a11cb, #2575fc); /* Fancy gradient button */
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 50px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.user-details-form button:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb); /* Reverse gradient */
+    transform: translateY(-3px); /* Lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* -------------------------------------------------
+   Responsive Design for Form
+--------------------------------------------------*/
+
+/* For screens below 768px */
+@media (max-width: 768px) {
+    .user-details-form {
+        padding: 1rem;
+        max-width: 90%;
+    }
+
+    .user-details-form h2 {
+        font-size: 1.4rem;
+    }
+
+    .user-details-form input,
+    .user-details-form textarea {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+
+    .user-details-form button {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* For screens below 480px */
+@media (max-width: 480px) {
+    .user-details-form h2 {
+        font-size: 1.2rem;
+    }
+
+    .user-details-form input,
+    .user-details-form textarea {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .user-details-form button {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+}

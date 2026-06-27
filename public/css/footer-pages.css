@@ -1,0 +1,322 @@
+/* Footer Pages CSS - Mobile-First Design */
+
+.footer-page {
+  background-color: #0b0b0b;
+  background: var(--site-bg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #ffffff;
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100vh;
+  font-family: 'Inter', 'Poppins', sans-serif;
+}
+
+/* Keep header and footer black - match existing site styling */
+.footer-page .header,
+.footer-page .footer {
+  background: #111 !important;
+  color: #ffd23f !important;
+  padding: 18px 20px !important;
+  text-align: center !important;
+  font-weight: bold !important;
+  letter-spacing: 0.05em !important;
+  position: relative;
+  z-index: 10;
+}
+
+.footer-page .site-footer {
+  background: #111 !important;
+  color: #ffd23f !important;
+}
+
+.footer-page .footer-inner,
+.footer-page .footer-brand,
+.footer-page .footer-links,
+.footer-page .link-col,
+.footer-page .footer-bottom {
+  background: transparent !important;
+  color: #ffd23f !important;
+}
+
+.footer-page .footer-brand h2,
+.footer-page .footer-brand p,
+.footer-page .link-col h3,
+.footer-page .link-col a,
+.footer-page .footer-bottom p {
+  color: #ffd23f !important;
+}
+
+.footer-page .social-links a {
+  color: #ffd23f !important;
+}
+
+.footer-page .social-links a:hover {
+  color: #fff000 !important;
+}
+
+/* Main content container */
+.footer-page-content {
+  padding: 3rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: rgba(24, 24, 24, 0.8);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 210, 63, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Hero section */
+.footer-page-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 210, 63, 0.2);
+}
+
+.footer-page-hero h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #ffd23f;
+  margin-bottom: 1rem;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  line-height: 1.2;
+}
+
+.footer-page-hero p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  color: #ffffff;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Content sections */
+.footer-page-section {
+  margin-bottom: 2.5rem;
+  padding: 2rem;
+  background: rgba(17, 17, 17, 0.5);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 210, 63, 0.1);
+}
+
+.footer-page-section h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffd23f;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.footer-page-section h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+}
+
+.footer-page-section p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #ffffff;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.footer-page-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.footer-page-section li {
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.footer-page-section li:before {
+  content: "▶";
+  color: #ffd23f;
+  position: absolute;
+  left: 0;
+  font-size: 0.8rem;
+}
+
+/* Special styling for FAQ */
+.faq-item {
+  background: rgba(255, 210, 63, 0.1);
+  border: 1px solid rgba(255, 210, 63, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  background: rgba(255, 210, 63, 0.15);
+  border-color: rgba(255, 210, 63, 0.3);
+}
+
+.faq-question {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffd23f;
+  margin-bottom: 0.5rem;
+}
+
+.faq-answer {
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* Contact info styling */
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.contact-item {
+  background: rgba(255, 210, 63, 0.1);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 210, 63, 0.2);
+  text-align: center;
+}
+
+.contact-item i {
+  color: #ffd23f;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.contact-item h4 {
+  font-family: 'Poppins', sans-serif;
+  color: #ffd23f;
+  margin-bottom: 0.5rem;
+}
+
+.contact-item p {
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* CTA buttons */
+.footer-page-cta {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 210, 63, 0.2);
+}
+
+.btn-cta {
+  font-family: 'Poppins', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: #ffd23f;
+  color: #111;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin: 0.5rem;
+}
+
+.btn-cta:hover {
+  background: #fff000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 210, 63, 0.3);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.btn-secondary:hover {
+  background: #ffffff;
+  color: #111;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .footer-page-content {
+    padding: 2rem 1rem;
+    margin: 1rem;
+    border-radius: 12px;
+  }
+  
+  .footer-page-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .footer-page-hero p {
+    font-size: 1rem;
+  }
+  
+  .footer-page-section {
+    padding: 1.5rem;
+  }
+  
+  .footer-page-section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .contact-info {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .btn-cta {
+    display: block;
+    margin: 0.5rem auto;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-page-content {
+    padding: 1.5rem 1rem;
+    margin: 0.5rem;
+  }
+  
+  .footer-page-hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .footer-page-section {
+    padding: 1rem;
+  }
+  
+  .footer-page-section h2 {
+    font-size: 1.3rem;
+  }
+  
+  .faq-item {
+    padding: 1rem;
+  }
+}

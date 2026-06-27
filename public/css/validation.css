@@ -1,0 +1,40 @@
+/* --- Container that pins the banner dead-centre --- */
+.validation-banner-container {
+    position: relative;
+    display: flex;
+    justify-content: center;  /* Center horizontally             */
+    align-items: center;      /* Center vertically               */
+    margin-top: 2rem;         /* Space from header/navigation */
+    margin-bottom: 1rem;      /* Space before filter section */
+    padding: 0 1rem;         /* Horizontal padding for mobile */
+    pointer-events: none;     /* Let clicks pass through if you wish */
+  }
+  
+  /* --- Banner itself --- */
+  .validation-banner {
+    max-width: 340px;
+    width: 90%;               /* Shrinks on phones               */
+    background: #ffecec;
+    border: 2px solid #ff5c5c;
+    color: #b30000;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    pointer-events: auto;     /* Allow interaction with buttons/links */
+    margin: 0 auto;           /* Center horizontally */
+  }
+  @media (max-width: 420px) {
+    .validation-banner-container {
+      margin-top: 1.5rem;      /* Slightly less on mobile */
+      margin-bottom: 0.75rem;
+      padding: 0 1rem;
+    }
+    .validation-banner {
+      width: 94%;               /* A little breathing room on tiny screens   */
+      max-width: none;          /* Let it use the full 94 % if needed        */
+      font-size: 0.9rem;        /* Slightly smaller text                     */
+      padding: 0.65rem 0.85rem; /* Tighter padding keeps it from feeling huge*/
+    }
+  }

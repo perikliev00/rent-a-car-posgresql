@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/footer-pages.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="footer-page">
+  <%- include('partials/header') %>
+
+  <main class="footer-page-content">
+    <div class="footer-page-hero">
+      <h1><i class="fas fa-universal-access"></i> Accessibility</h1>
+      <p>Our commitment to inclusive, usable experiences for everyone.</p>
+    </div>
+
+    <section class="footer-page-section">
+      <h2>Standards</h2>
+      <p>We aim to conform to WCAG 2.2 AA guidelines. Pages are built with semantic HTML, labeled controls, and keyboard-friendly navigation.</p>
+    </section>
+
+    <section class="footer-page-section">
+      <h2>Known Limitations</h2>
+      <ul>
+        <li>Some images may lack alternative text while content is being updated.</li>
+        <li>Color contrast in legacy banners may fall below AA. We are fixing these.</li>
+      </ul>
+    </section>
+
+    <section class="footer-page-section">
+      <h2>Feedback</h2>
+      <p>Found an accessibility issue? Let us know at <a href="mailto:perikliev00@gmail.com">perikliev00@gmail.com</a> or via our <a href="/contacts">contact form</a>.</p>
+    </section>
+
+    <div class="footer-page-cta">
+      <a href="/faq" class="btn-cta">Visit Help Center</a>
+      <a href="/" class="btn-cta btn-secondary">Back to Home</a>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/mobileNav.js"></script>
+</body>
+</html>
+
+

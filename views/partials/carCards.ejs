@@ -1,0 +1,73 @@
+<section class="car-list container">
+  <style>
+    .card.car-card { position: relative; overflow: hidden; border-radius: 14px; border-width: 3px; transition: transform .2s ease, box-shadow .2s ease; display:flex; flex-direction:column; }
+    .card.car-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.45); }
+    .ribbon { position:absolute; top:12px; left:-40px; background:#ef4444; color:#fff; padding:.35rem 2rem; transform: rotate(-28deg); font-weight:800; letter-spacing:.02em; }
+    .badge-chip { display:inline-flex; align-items:center; gap:.25rem; padding:.18rem .4rem; border:2px solid #ffd23f; border-radius:999px; color:#ffd23f; font-size:.7rem; font-weight:800; background:rgba(255,210,63,.08); }
+    .badge-chip .icon, .badge-chip .icon-sm { width:.9rem; height:.9rem; }
+    .price-row { display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-top:.5rem; }
+    .price-big { font-size:1.15rem; font-weight:900; color:#ffd23f; }
+    .tier-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:.3rem; margin-top:.45rem; }
+    .tier { background:rgba(255,210,63,.08); border:1px dashed #ffd23f55; border-radius:8px; padding:.3rem; text-align:center; font-size:.76rem; color:#ffd23f; font-weight:800; }
+    .props-box { min-height: 150px; max-height:150px; display:flex; flex-direction:column; gap:.45rem; overflow:hidden; }
+    .title-wrap { min-height: 40px; display:flex; align-items:center; }
+    .car-title { margin:0; line-height:1.1; }
+    @media (max-width: 480px) {
+      .props-box { min-height: 130px; max-height:130px; }
+      .badge-chip { font-size:.74rem; padding:.22rem .45rem; }
+      .tier { font-size:.72rem; }
+      .price-big { font-size:1.05rem; }
+      .title-wrap { min-height: 36px; }
+    }
+    .card-actions { display:flex; gap:.5rem; margin-top:auto; }
+    .btn-ghost { padding:.5rem .8rem; border:2px solid #ffd23f; color:#ffd23f; border-radius:10px; text-decoration:none; font-weight:900; letter-spacing:.02em; }
+    .btn-ghost:hover { background:#ffd23f; color:#111; }
+  </style>
+  <h2 class="our-cars">Our Cars</h2>
+  <div class="grid cars">
+    <% if (cars && cars.length > 0) { %>
+      <% cars.forEach(car => { %>
+        <div class="card car-card">
+          <% if (!car.availability) { %>
+            <div class="ribbon">BOOKED</div>
+          <% } %>
+          <figure class="card-media" aria-label="<%= car.name %> image">
+            <img src="<%= car.image %>" alt="<%= car.name %>">
+          </figure>
+          <div class="card-content">
+            <div class="title-wrap">
+              <h3 class="car-title">
+                <svg class="icon icon-sm" aria-hidden="true"><use href="/images/icons.svg#icon-car"></use></svg>
+                <%= car.name %>
+              </h3>
+            </div>
+            <div class="props-box">
+              <div style="display:flex; gap:.4rem; flex-wrap:wrap;">
+                <span class="badge-chip"><svg class="icon icon-sm" aria-hidden="true"><use href="/images/icons.svg#icon-gear"></use></svg><%= car.transmission %></span>
+                <span class="badge-chip"><svg class="icon icon-sm" aria-hidden="true"><use href="/images/icons.svg#icon-fuel"></use></svg><%= car.fuelType %></span>
+                <span class="badge-chip"><svg class="icon icon-sm" aria-hidden="true"><use href="/images/icons.svg#icon-users"></use></svg><%= car.seats %> seats</span>
+              </div>
+              <div class="price-row">
+                <% const tierPrices = [car.priceTier_1_3, car.priceTier_7_31, car.priceTier_31_plus, car.price].filter(p => p != null); %>
+                <% const minPerDay = tierPrices.length ? Math.min.apply(null, tierPrices) : (car.price || 0); %>
+                <div class="price-big">$<%= minPerDay %> / day</div>
+                <div class="availability <%= car.availability ? 'available' : 'unavailable' %>">
+                  <span class="dot"></span>
+                  <span><%= car.availability ? 'Available' : 'Booked' %></span>
+                </div>
+              </div>
+              <div class="tier-grid">
+                <div class="tier">1–3d: $<%= car.priceTier_1_3 != null ? car.priceTier_1_3 : car.price %></div>
+                <div class="tier">7–31d: $<%= car.priceTier_7_31 != null ? car.priceTier_7_31 : car.price %></div>
+                <div class="tier">31+d: $<%= car.priceTier_31_plus != null ? car.priceTier_31_plus : car.price %></div>
+              </div>
+            </div>
+            <!-- Actions removed on home page for a cleaner mobile layout -->
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>No cars available for the selected filters.</p>
+    <% } %>
+  </div>
+</section>

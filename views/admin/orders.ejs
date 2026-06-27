@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - LuxRide</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <%
+    // Helper function to format dates without dashes
+    function formatDate(dateString) {
+      if (!dateString) return '';
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return dateString;
+      
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const day = date.getDate();
+      const month = months[date.getMonth()];
+      const year = date.getFullYear();
+      
+      return `${day} ${month} ${year}`;
+    }
+    
+    // Helper function to format location names
+    function formatLocation(locationString) {
+      if (!locationString) return '';
+      
+      const specialCases = {
+        'office': 'Office',
+        'sunny-beach': 'Sunny Beach',
+        'sveti-vlas': 'Sveti Vlas',
+        'nesebar': 'Nesebar',
+        'burgas': 'Burgas',
+        'burgas-airport': 'Burgas Airport',
+        'sofia': 'Sofia',
+        'sofia-airport': 'Sofia Airport',
+        'varna': 'Varna',
+        'varna-airport': 'Varna Airport',
+        'plovdiv': 'Plovdiv',
+        'eleni': 'Eleni',
+        'ravda': 'Ravda'
+      };
+      
+      if (specialCases[locationString]) {
+        return specialCases[locationString];
+      }
+      
+      return locationString
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+    }
+    %>
+    <% const statusMap = {
+         'expired': { label: 'Expired', class: 'badge badge-expired' },
+         'cancelled': { label: 'Cancelled', class: 'badge badge-cancelled' },
+         'pending': { label: 'Pending', class: 'badge badge-pending' },
+         'active': { label: 'Active', class: 'badge badge-active' }
+       };
+    %>
+    <% function normalizeImage(img){
+         if(!img){ return '/images/luxury-showroom-orders.jpg'; }
+         let u = String(img).trim();
+         if (u.startsWith('http') || u.startsWith('//')) return u;
+         if (!u.startsWith('/')) u = '/' + u;
+         return encodeURI(u);
+       }
+    %>
+    <style>
+        .admin-orders {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #ffd23f;
+            padding-bottom: 1rem;
+        }
+        
+        .page-title {
+            color: #ffd23f;
+            margin: 0;
+        }
+        
+        .back-link {
+            color: #ffd23f;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: opacity 0.3s;
+        }
+        
+        .back-link:hover {
+            opacity: 0.8;
+        }
+        
+        .orders-container {
+            background: rgba(24, 24, 24, 0.6);
+            border: 2px solid #ffd23f;
+            border-radius: 10px;
+            padding: 1.5rem;
+            backdrop-filter: blur(8px);
+        }
+        
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #fff;
+        }
+        
+        .orders-table th,
+        .orders-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        
+        .orders-table th {
+            background: rgba(255, 210, 63, 0.1);
+            color: #ffd23f;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        .orders-table tr:hover {
+            background: rgba(255, 210, 63, 0.05);
+        }
+        
+        .car-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .car-image {
+            width: 50px;
+            height: 35px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .customer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .customer-name {
+            font-weight: 600;
+            color: #ffd23f;
+        }
+        
+        .customer-details {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        .date-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .date-range {
+            font-weight: 600;
+        }
+        
+        .time-info {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        .location-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .pickup-location {
+            color: #10b981;
+        }
+        
+        .return-location {
+            color: #3b82f6;
+        }
+        
+        .price-info {
+            text-align: center;
+        }
+        
+        .total-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffd23f;
+        }
+        
+        .rental-days {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        .badge {
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .badge-active { background: rgba(16,185,129,.15); color:#10b981; border:1px solid rgba(16,185,129,.4); }
+        .badge-pending { background: rgba(245,158,11,.15); color:#f59e0b; border:1px solid rgba(245,158,11,.4); }
+        .badge-expired { background: rgba(239,68,68,.15); color:#ef4444; border:1px solid rgba(239,68,68,.4); }
+        .badge-cancelled { background: rgba(107,114,128,.2); color:#9ca3af; border:1px solid rgba(107,114,128,.4); }
+        
+        .admin-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-admin {
+            padding: 0.5rem 1rem;
+            border: 1px solid;
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-admin:hover {
+            transform: translateY(-1px);
+        }
+        
+        .btn-edit { 
+            border-color: #3b82f6; 
+            color: #3b82f6; 
+        }
+        .btn-edit:hover { 
+            background: #3b82f6; 
+            color: #fff; 
+        }
+        
+        .btn-delete { 
+            border-color: #ef4444; 
+            color: #ef4444; 
+        }
+        .btn-delete:hover { 
+            background: #ef4444; 
+            color: #fff; 
+        }
+        
+        .btn-view { 
+            border-color: #10b981; 
+            color: #10b981; 
+        }
+        .btn-view:hover { 
+            background: #10b981; 
+            color: #fff; 
+        }
+        
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .filter-group label {
+            color: #ffd23f;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .filter-group select,
+        .filter-group input {
+            padding: 0.5rem;
+            border: 1px solid #ffd23f;
+            border-radius: 4px;
+            background: rgba(24, 24, 24, 0.8);
+            color: #fff;
+            font-size: 0.9rem;
+        }
+        
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #fff;
+            box-shadow: 0 0 0 2px rgba(255, 210, 63, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .admin-orders { padding: 1rem; }
+            
+            /* Stack page header vertically on small screens */
+            .page-header {
+                flex-direction: column;
+                align-items: center; /* Center the header content */
+                gap: 1rem;
+                padding: 1rem 0.5rem; /* Equal spacing around header */
+            }
+            
+            /* Center buttons container with equal spacing */
+            .page-header > div {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center; /* Center buttons */
+                align-items: center;
+                gap: 0.5rem;
+                width: 100%;
+                padding: 0.5rem; /* Equal padding around button container */
+                box-sizing: border-box;
+            }
+            
+            /* Ensure buttons wrap properly with visible borders */
+            .page-header .btn-admin,
+            .page-header .back-link {
+                flex: 0 1 auto; /* Don't grow, allow shrink, auto basis */
+                min-width: calc(50% - 0.5rem); /* Two buttons per row accounting for gap */
+                max-width: 100%; /* Prevent overflow */
+                text-align: center;
+                font-size: 0.75rem;
+                padding: 0.4rem 0.6rem;
+                box-sizing: border-box; /* Include border in width calculation */
+                white-space: nowrap; /* Prevent text wrapping inside buttons */
+                overflow: visible; /* Ensure borders are visible */
+            }
+            
+            .orders-table { font-size: 0.8rem; }
+            .orders-table th,
+            .orders-table td { padding: 0.5rem 0.25rem; }
+            .filters { flex-direction: column; }
+            .admin-actions { flex-direction: column; }
+        }
+        
+        /* Extra small screens - stack buttons vertically */
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 1rem 0.75rem; /* More padding on very small screens */
+            }
+            
+            .page-header > div {
+                flex-direction: column;
+                justify-content: center;
+                align-items: stretch; /* Full width buttons */
+                gap: 0.75rem; /* Slightly more gap when stacked */
+                padding: 0.75rem; /* Equal padding around button container */
+            }
+            
+            .page-header .btn-admin,
+            .page-header .back-link {
+                min-width: 100%;
+                width: 100%;
+                box-sizing: border-box; /* Include border in width */
+                overflow: visible; /* Ensure borders are visible */
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/header') %>
+    
+    <div class="admin-orders">
+        <div class="page-header">
+            <h1 class="page-title"><%= title %> - LuxRide</h1>
+            <div style="display:flex; gap:.5rem; align-items:center;">
+              <a href="/admin/orders/new" class="btn-admin" style="border-color:#10b981;color:#10b981; text-decoration:none;">+ Add Order</a>
+              <a href="/admin/orders/expired" class="btn-admin" style="border-color:#ef4444;color:#ef4444; text-decoration:none;">Expired Orders</a>
+              <a href="/admin/orders/deleted" class="btn-admin" style="border-color:#9ca3af;color:#9ca3af; text-decoration:none;">Deleted Orders</a>
+              <a href="/admin-dashboard" class="back-link">← Back to Dashboard</a>
+            </div>
+        </div>
+        
+        <!-- Filters -->
+        <form id="orders-filter-form" class="filters" method="GET" action="/admin/orders">
+            <div class="filter-group">
+                <label for="status-filter">Status</label>
+                <select id="status-filter" name="status">
+                    <option value="" <%= !filters || !filters.status ? 'selected' : '' %>>All Statuses</option>
+                    <option value="active" <%= filters && filters.status === 'active' ? 'selected' : '' %>>Active</option>
+                    <option value="pending" <%= filters && filters.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                    <option value="expired" <%= filters && filters.status === 'expired' ? 'selected' : '' %>>Expired</option>
+                    <option value="cancelled" <%= filters && filters.status === 'cancelled' ? 'selected' : '' %>>Cancelled</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="start-date-filter">Start Date</label>
+                <input
+                  type="date"
+                  id="start-date-filter"
+                  name="startDate"
+                  value="<%= filters && filters.startDate ? filters.startDate : '' %>">
+            </div>
+            <div class="filter-group">
+                <label for="end-date-filter">End Date</label>
+                <input
+                  type="date"
+                  id="end-date-filter"
+                  name="endDate"
+                  value="<%= filters && filters.endDate ? filters.endDate : '' %>">
+            </div>
+            <div class="filter-group">
+                <label for="search-filter">Search Customer</label>
+                <input
+                  type="text"
+                  id="search-filter"
+                  name="search"
+                  placeholder="Name, email or phone..."
+                  value="<%= filters && filters.search ? filters.search : '' %>">
+            </div>
+            <div class="filter-group" style="align-self:flex-end;">
+                <button type="submit" class="btn-admin" style="border-color:#ffd23f;color:#ffd23f;">Apply Filters</button>
+            </div>
+        </form>
+        
+        <!-- Orders Table -->
+        <div class="orders-container">
+            <% if (orders && orders.length > 0) { %>
+                <div style="overflow-x: auto;">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Car Details</th>
+                                <th>Rental Period</th>
+                                <th>Locations</th>
+                                <th>Pricing</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% orders.forEach(order => { %>
+                                <tr>
+                                    <td>
+                                        <div class="customer-info">
+                                            <div class="customer-name"><%= order.fullName %></div>
+                                            <div class="customer-details">
+                                                <%= order.email %><br>
+                                                <%= order.phoneNumber %>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <% if (order.carId) { %>
+                                            <div class="car-info">
+                                                <div>
+                                                    <div><strong><%= order.carId.name %></strong></div>
+                                                    <div style="font-size: 0.8rem; opacity: 0.7;">
+                                                        <%= order.carId.transmission %> • <%= order.carId.seats %> seats
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <% } else { %>
+                                            <span style="opacity: 0.5;">Car not found</span>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <div class="date-info">
+                                            <div class="date-range">
+                                                <%= formatDate(order.pickupDate) %> - <%= formatDate(order.returnDate) %>
+                                            </div>
+                                            <div class="time-info">
+                                                <%= order.pickupTime %> - <%= order.returnTime %>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="location-info">
+                                            <div class="pickup-location">📍 <%= formatLocation(order.pickupLocation) %></div>
+                                            <div class="return-location">📍 <%= formatLocation(order.returnLocation) %></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="price-info">
+                                            <div class="total-price">€<%= order.totalPrice %></div>
+                                            <div class="rental-days"><%= order.rentalDays %> days</div>
+                                            <div style="font-size:0.8rem; opacity:0.8; margin-top:0.25rem;">
+                                                <div>Per day: €<%= (order.carId && order.carId.price != null) ? order.carId.price : '-' %></div>
+                                                <div>Delivery: €<%= order.deliveryPrice || '0' %></div>
+                                                <div>Return: €<%= order.returnPrice || '0' %></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <% const currentStatus = order.status || 'active'; const statusMeta = statusMap[currentStatus] || statusMap['active']; %>
+                                        <span class="<%= statusMeta.class %>"><%= statusMeta.label %></span>
+                                    </td>
+                                    <td>
+                                        <div class="admin-actions">
+                                            <a class="btn-admin btn-view" href="/admin/orders/<%= order.id %>">View</a>
+                                            <a class="btn-admin btn-edit" href="/admin/orders/<%= order.id %>/edit">Edit</a>
+                                            <form action="/admin/orders/<%= order.id %>/delete" method="POST" style="display:inline;" onsubmit="return confirm('Delete this order? This will also free the car dates.');">
+                                                <input type="hidden" name="_csrf" value="<%= csrfToken || '' %>">
+                                                <button type="submit" class="btn-admin btn-delete">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } else { %>
+                <div style="text-align: center; padding: 3rem;">
+                    <p style="color: #fff; opacity: 0.7; font-size: 1.1rem;">No orders found.</p>
+                    <p style="color: #ffd23f; opacity: 0.8; margin-top: 0.5rem;">Orders will appear here once customers make bookings.</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    
+    <%- include('../partials/footer') %>
+    <script src="/js/mobileNav.js"></script>
+</body>
+</html>
+

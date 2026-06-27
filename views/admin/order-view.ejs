@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - LuxRide</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <style>
+    .order-view { max-width: 1100px; margin: 2rem auto; padding: 1.5rem; background: rgba(24,24,24,.6); border: 2px solid #ffd23f; border-radius: 12px; }
+    .header { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
+    .title { color:#ffd23f; margin:0; }
+    .back { color:#ffd23f; text-decoration:none; }
+    /* Improve shrink behavior even on mid sizes */
+    .grid { display:grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap:1.25rem; }
+    .car-card { overflow:hidden; border-radius:10px; border:1px solid #333; background:#0a0a0a; }
+    .car-card img { display:block; width:100%; height:260px; object-fit:cover; }
+    .car-info { padding:.75rem 1rem; color:#fff; }
+    .car-name { color:#ffd23f; font-weight:700; }
+    .section { border:1px solid #333; border-radius:10px; padding:1rem; }
+    .section h3 { color:#ffd23f; margin:0 0 .75rem 0; }
+    .row { display:grid; grid-template-columns: 160px 1fr; gap:.5rem; padding:.35rem 0; border-bottom:1px dashed #333; }
+    .row:last-child { border-bottom:none; }
+    .label { color:#aaa; }
+    .value { color:#fff; font-weight:600; }
+    .actions { display:flex; gap:.5rem; margin-top:1rem; }
+    .btn-admin { padding: 0.5rem 1rem; border: 1px solid #ffd23f; border-radius: 6px; background: transparent; color: #ffd23f; cursor: pointer; font-size: 0.9rem; text-decoration:none; }
+    .btn-edit { border-color:#3b82f6; color:#3b82f6; }
+    .btn-delete { border-color:#ef4444; color:#ef4444; }
+
+    /* Allow content to wrap instead of forcing overflow */
+    .section, .value, .car-info { min-width: 0; }
+    .value { overflow-wrap: anywhere; word-break: break-word; }
+
+    /* Responsive: stack to 1 column on small screens */
+    @media (max-width: 900px) {
+      .order-view { margin: 1rem; padding: 1rem; }
+      .header { flex-direction: column; align-items: flex-start; }
+      .grid { grid-template-columns: 1fr; }
+      .car-card img { height: 220px; }
+    }
+
+    /* Extra small screens: make rows vertical so labels don’t steal width */
+    @media (max-width: 480px) {
+      .row { grid-template-columns: 1fr; gap: 0.25rem; }
+      .label { font-size: 0.85rem; }
+    }
+  </style>
+  <% function formatDate(dateString){ if(!dateString) return ''; const d=new Date(dateString); if(isNaN(d)) return dateString; const m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return d.getDate()+" "+m[d.getMonth()]+" "+d.getFullYear(); } %>
+  <% function formatLocation(loc){ if(!loc) return ''; return loc.split('-').map(w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join(' ');} %>
+  <% function normalizeImage(img){ if(!img){ return '/images/luxury-showroom-orders.jpg'; } let u = String(img).trim(); if (u.startsWith('http') || u.startsWith('//')) return u; if (!u.startsWith('/')) u = '/' + u; return encodeURI(u);} %>
+</head>
+<body>
+  <%- include('../partials/header') %>
+  <main class="order-view">
+    <div class="header">
+      <h1 class="title">Order Details</h1>
+      <a class="back" href="/admin/orders">← Back to Orders</a>
+    </div>
+    <div class="grid">
+      <div class="car-card">
+        <img src="<%= normalizeImage(order.carId && order.carId.image) %>" alt="<%= order.carId && order.carId.name %>">
+        <div class="car-info">
+          <% if (order.carId) { %>
+            <div class="car-name"><%= order.carId.name %></div>
+            <div style="opacity:.8; font-size:.9rem;">€<%= order.carId.price %>/day • <%= order.carId.transmission %> • <%= order.carId.seats %> seats</div>
+          <% } else { %>
+            <div style="opacity:.7;">Car not found</div>
+          <% } %>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:1.25rem;">
+        <section class="section">
+          <h3>Customer</h3>
+          <div class="row"><div class="label">Name</div><div class="value"><%= order.fullName %></div></div>
+          <div class="row"><div class="label">Email</div><div class="value"><%= order.email %></div></div>
+          <div class="row"><div class="label">Phone</div><div class="value"><%= order.phoneNumber %></div></div>
+          <div class="row"><div class="label">Hotel</div><div class="value"><%= order.hotelName %></div></div>
+          <div class="row"><div class="label">Address</div><div class="value"><%= order.address %></div></div>
+        </section>
+        <section class="section">
+          <h3>Rental</h3>
+          <div class="row"><div class="label">Pickup</div><div class="value"><%= formatDate(order.pickupDate) %> • <%= order.pickupTime %> • <%= formatLocation(order.pickupLocation) %></div></div>
+          <div class="row"><div class="label">Return</div><div class="value"><%= formatDate(order.returnDate) %> • <%= order.returnTime %> • <%= formatLocation(order.returnLocation) %></div></div>
+          <div class="row"><div class="label">Days</div><div class="value"><%= order.rentalDays %></div></div>
+        </section>
+        <section class="section">
+          <h3>Pricing</h3>
+          <div class="row"><div class="label">Per Day</div><div class="value">€<%= order.carId && order.carId.price != null ? order.carId.price : '-' %></div></div>
+          <div class="row"><div class="label">Delivery</div><div class="value">€<%= order.deliveryPrice %></div></div>
+          <div class="row"><div class="label">Return</div><div class="value">€<%= order.returnPrice %></div></div>
+          <div class="row"><div class="label">Total</div><div class="value" style="color:#ffd23f;">€<%= order.totalPrice %></div></div>
+        </section>
+        <div class="actions">
+          <a class="btn-admin btn-edit" href="/admin/orders/<%= order.id %>/edit">Edit</a>
+          <form action="/admin/orders/<%= order.id %>/delete" method="POST" onsubmit="return confirm('Delete this order? This will also free the car dates.');">
+            <input type="hidden" name="_csrf" value="<%= csrfToken || '' %>">
+            <button type="submit" class="btn-admin btn-delete">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('../partials/footer') %>
+  <script src="/js/mobileNav.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/tw.build.css">
+  <link rel="stylesheet" href="/css/animatedBackground.css">
+  <link rel="stylesheet" href="/css/searchResultsCards.css">
+  <link rel="stylesheet" href="/css/footer.css">
+   <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</head>
+<body class="search-results">
+  <%- include('partials/header') %>
+
+  <!-- Filter retains user selections -->
+  <%- include('partials/filter', {
+        title: 'Search Results',
+        pickupLocation,
+        returnLocation,
+        pickupDate,
+        returnDate,
+        pickupTime,
+        returnTime,
+      }) %>
+
+  <h2 class="search-results-heading">
+    Cars available<br>
+    from <%= pickupDate %><br>
+    to <%= returnDate %>
+  </h2>
+  <div class="search-results-wrapper">
+    <aside class="filters-aside">
+      <div class="filters-aside-inner">
+        <h3 class="filters-aside-title">Filters</h3>
+        <form method="POST" action="/postSearchCars" class="filters-aside-form">
+          <% const f = (typeof filters !== 'undefined' && filters) ? filters : {}; %>
+          <% const cat = (typeof category !== 'undefined' && category) ? category : ''; %>
+
+          <input type="hidden" name="_csrf" value="<%= csrfToken || '' %>" />
+          <input type="hidden" name="page" value="1" />
+
+          <!-- Preserve original search params -->
+          <input type="hidden" name="pickup-location" value="<%= pickupLocation || '' %>" />
+          <input type="hidden" name="return-location" value="<%= returnLocation || '' %>" />
+          <input type="hidden" name="pickup-date" value="<%= pickupDate || '' %>" />
+          <input type="hidden" name="return-date" value="<%= returnDate || '' %>" />
+          <input type="hidden" name="pickup-time" value="<%= pickupTime || '' %>" />
+          <input type="hidden" name="return-time" value="<%= returnTime || '' %>" />
+
+          <div class="filters-field">
+            <label for="flt-transmission">Transmission</label>
+            <select id="flt-transmission" name="transmission" class="filters-select">
+              <option value="">Any</option>
+              <option value="automatic" <%= f.transmission === 'automatic' ? 'selected' : '' %>>Automatic</option>
+              <option value="manual" <%= f.transmission === 'manual' ? 'selected' : '' %>>Manual</option>
+            </select>
+          </div>
+
+          <div class="filters-field">
+            <label for="flt-fuel">Fuel</label>
+            <select id="flt-fuel" name="fuelType" class="filters-select">
+              <option value="">Any</option>
+              <option value="petrol" <%= f.fuelType === 'petrol' ? 'selected' : '' %>>Petrol</option>
+              <option value="diesel" <%= f.fuelType === 'diesel' ? 'selected' : '' %>>Diesel</option>
+              <option value="hybrid" <%= f.fuelType === 'hybrid' ? 'selected' : '' %>>Hybrid</option>
+              <option value="electric" <%= f.fuelType === 'electric' ? 'selected' : '' %>>Electric</option>
+            </select>
+          </div>
+
+          <div class="filters-row filters-row--range">
+            <div class="filters-field filters-field--min-price">
+              <label for="flt-price-min">Min price / day</label>
+              <input id="flt-price-min" type="number" name="priceMin" min="0" class="filters-input" value="<%= f.priceMin || '' %>" />
+            </div>
+
+            <div class="filters-field filters-field--max-price">
+              <label for="flt-price-max">Max price / day</label>
+              <input id="flt-price-max" type="number" name="priceMax" min="0" class="filters-input" value="<%= f.priceMax || '' %>" />
+            </div>
+          </div>
+
+          <div class="filters-row filters-row--range">
+            <div class="filters-field filters-field--min-seats">
+              <label for="flt-seats-min">Min seats</label>
+              <input id="flt-seats-min" type="number" name="seatsMin" min="1" max="9" class="filters-input" value="<%= f.seatsMin || '' %>" />
+            </div>
+
+            <div class="filters-field filters-field--max-seats">
+              <label for="flt-seats-max">Max seats</label>
+              <input id="flt-seats-max" type="number" name="seatsMax" min="1" max="9" class="filters-input" value="<%= f.seatsMax || '' %>" />
+            </div>
+          </div>
+
+          <div class="filters-field">
+            <label for="flt-category">Browse by Category</label>
+            <select id="flt-category" name="category" class="filters-select">
+              <option value="" <%= cat === '' ? 'selected' : '' %>>All</option>
+              <option value="automatic" <%= cat === 'automatic' ? 'selected' : '' %>>Automatic</option>
+              <option value="manual" <%= cat === 'manual' ? 'selected' : '' %>>Manual</option>
+              <option value="electric" <%= cat === 'electric' ? 'selected' : '' %>>Electric</option>
+              <option value="hybrid" <%= cat === 'hybrid' ? 'selected' : '' %>>Hybrid</option>
+              <option value="petrol" <%= cat === 'petrol' ? 'selected' : '' %>>Petrol</option>
+              <option value="diesel" <%= cat === 'diesel' ? 'selected' : '' %>>Diesel</option>
+              <option value="seats-2-3" <%= cat === 'seats-2-3' ? 'selected' : '' %>>2-3 seats</option>
+              <option value="seats-4-5" <%= cat === 'seats-4-5' ? 'selected' : '' %>>4-5 seats</option>
+              <option value="seats-6-9" <%= cat === 'seats-6-9' ? 'selected' : '' %>>6-9 seats</option>
+            </select>
+          </div>
+
+          <button type="submit" class="filters-apply-btn">Apply</button>
+        </form>
+      </div>
+    </aside>
+    <div class="search-results-main">
+      <!-- Car list -->
+      <section class="car-list container">
+        <div class="grid cars">
+          <% if (cars && cars.length) { %>
+            <% cars.forEach(car => { %>
+              <%- include('partials/carResultsCards', {
+                    car,
+                    rentalDays,
+                    pickupDate,
+                    returnDate,
+                    pickupTime,
+                    returnTime,
+                    pickupLocation,
+                    returnLocation,
+              }) %>
+            <% }) %>
+          <% } else { %>
+            <p>No cars available for those dates.</p>
+          <% } %>
+        </div>
+      </section>
+
+      <!-- AJAX pager (POST-based) -->
+      <div class="home-pagination-bar results-pagination-bar">
+        <div class="pager pager-desktop" style="display:flex; gap:.4rem; flex-wrap:nowrap;">
+          <%
+            var currentPage = (typeof currentPage !== 'undefined' && currentPage) ? currentPage : 1;
+            var totalPages  = (typeof totalPages  !== 'undefined' && totalPages)  ? totalPages  : 1;
+          %>
+          <span data-current-page="<%= currentPage %>" style="display:none;"></span>
+          <span data-total-pages="<%= totalPages %>" style="display:none;"></span>
+
+          <a class="prev" data-page="<%= Math.max(1, currentPage - 1) %>" aria-disabled="<%= currentPage > 1 ? 'false' : 'true' %>" href="#">
+            ‹
+          </a>
+          <span style="color:#ffd23f; font-weight:800;">Page <%= currentPage %> / <%= totalPages %></span>
+          <a class="next" data-page="<%= Math.min(totalPages, currentPage + 1) %>" aria-disabled="<%= currentPage < totalPages ? 'false' : 'true' %>" href="#">
+            ›
+          </a>
+        </div>
+      </div>
+
+      <!-- Hidden POST paging form used by ajaxPagination.js -->
+      <form id="resultsPagingForm" method="POST" action="/postSearchCars" style="display:none;">
+        <input type="hidden" name="_csrf" value="<%= csrfToken || '' %>" />
+        <input type="hidden" name="page" value="<%= currentPage || 1 %>" />
+
+        <input type="hidden" name="pickup-location" value="<%= pickupLocation || '' %>" />
+        <input type="hidden" name="return-location" value="<%= returnLocation || '' %>" />
+        <input type="hidden" name="pickup-date" value="<%= pickupDate || '' %>" />
+        <input type="hidden" name="return-date" value="<%= returnDate || '' %>" />
+        <input type="hidden" name="pickup-time" value="<%= pickupTime || '' %>" />
+        <input type="hidden" name="return-time" value="<%= returnTime || '' %>" />
+
+        <input type="hidden" name="transmission" value="<%= f.transmission || '' %>" />
+        <input type="hidden" name="fuelType" value="<%= f.fuelType || '' %>" />
+        <input type="hidden" name="priceMin" value="<%= f.priceMin || '' %>" />
+        <input type="hidden" name="priceMax" value="<%= f.priceMax || '' %>" />
+        <input type="hidden" name="seatsMin" value="<%= f.seatsMin || '' %>" />
+        <input type="hidden" name="seatsMax" value="<%= f.seatsMax || '' %>" />
+        <input type="hidden" name="category" value="<%= cat || '' %>" />
+      </form>
+    </div>
+  </div>
+
+  
+
+  <%- include('partials/footer') %>
+  <script src="/js/datePicker.js"></script>
+  <script src="/js/customDropdown.js"></script>
+  <script src="/js/filterCategorySync.js"></script>
+  <script src="/js/mobileNav.js"></script>
+  <script src="/js/ajaxPagination.js"></script>
+</body>
+</html>

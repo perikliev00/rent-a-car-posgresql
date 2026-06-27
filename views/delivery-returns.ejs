@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/footer-pages.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="footer-page">
+  <%- include('partials/header') %>
+
+  <main class="footer-page-content">
+    <div class="footer-page-hero">
+      <h1><i class="fas fa-truck"></i> Delivery & Returns</h1>
+      <p>Options for delivery, pickup, and smooth returns.</p>
+    </div>
+
+    <section class="footer-page-section">
+      <h2>Delivery</h2>
+      <p>We can deliver to hotels, airports, and offices within the city. Fees vary by distance and timing.</p>
+    </section>
+
+    <section class="footer-page-section">
+      <h2>Returns</h2>
+      <p>Return to our showroom or request a pickup. Late returns may incur fees as described in our terms.</p>
+    </section>
+
+    <div class="footer-page-cta">
+      <a href="/contacts" class="btn-cta">Arrange Delivery</a>
+      <a href="/terms" class="btn-cta btn-secondary">See Terms</a>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/mobileNav.js"></script>
+</body>
+</html>
+
+

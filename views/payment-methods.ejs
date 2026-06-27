@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/footer-pages.css">
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="footer-page">
+  <%- include('partials/header') %>
+
+  <main class="footer-page-content">
+    <div class="footer-page-hero">
+      <h1><i class="fas fa-credit-card"></i> Payment Methods</h1>
+      <p>Accepted options and processing details.</p>
+    </div>
+
+    <section class="footer-page-section">
+      <h2>Accepted Methods</h2>
+      <ul>
+        <li>Credit/Debit cards: Visa, Mastercard, American Express</li>
+        <li>Apple Pay and Google Pay (in person)</li>
+        <li>Bank transfer for corporate bookings</li>
+      </ul>
+    </section>
+
+    <section class="footer-page-section">
+      <h2>Security</h2>
+      <p>Payments are processed securely via our PCI-compliant provider. We never store full card numbers on our servers.</p>
+    </section>
+
+    <div class="footer-page-cta">
+      <a href="/terms" class="btn-cta">Terms of Service</a>
+      <a href="/" class="btn-cta btn-secondary">Back to Home</a>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/mobileNav.js"></script>
+</body>
+</html>
+
+

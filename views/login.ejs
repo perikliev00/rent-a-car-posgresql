@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login - LuxRide</title>
+	<link rel="stylesheet" href="/css/styles.css">
+	<link rel="stylesheet" href="/css/footer.css">
+	<link rel="stylesheet" href="/css/validation.css">
+</head>
+<body>
+	<%- include('partials/header') %>
+
+	<section class="filter-section" style="border-bottom:none; padding-top: 4rem;">
+		<h2 style="margin-bottom: 1rem;">Sign in to LuxRide Admin</h2>
+		<form action="/login" method="POST" class="filter-form" style="max-width: 520px; position: relative;">
+			<input type="hidden" name="_csrf" value="<%= csrfToken || '' %>">
+			<div class="form-row" style="max-width: 100%;">
+				<label for="email">Email</label>
+				<input type="email" id="email" name="email" placeholder="you@example.com" value="<%= typeof email !== 'undefined' ? email : '' %>" required>
+			</div>
+			<div class="form-row" style="max-width: 100%;">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" placeholder="••••••••" required>
+			</div>
+
+			<% if (typeof errors !== 'undefined' && errors.length) { %>
+				<div class="validation-banner-container">
+					<div class="validation-banner" role="alert">
+						<ul style="margin:0; padding-left: 1rem; text-align:left;">
+							<% errors.forEach(function(err){ %>
+								<li><%= err.msg %></li>
+							<% }) %>
+						</ul>
+					</div>
+				</div>
+			<% } %>
+
+			<div class="submit-row">
+				<button type="submit" class="btn">Login</button>
+			</div>
+		</form>
+		<p style="margin-top:1rem;">Don't have an account? <a href="/signup">Create one</a></p>
+	</section>
+
+	<%- include('partials/footer') %>
+	<script src="/js/mobileNav.js"></script>
+</body>
+</html>
+
+

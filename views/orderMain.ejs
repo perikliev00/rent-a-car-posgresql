@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/tw.build.css">            <!-- Tailwind first -->
+    <link rel="stylesheet" href="/css/styles.css">              <!-- global base -->
+    <link rel="stylesheet" href="/css/responsiveStyles.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/validation.css">
+    <link rel="stylesheet" href="/css/animatedBackground.css">
+    <link rel="stylesheet" href="/css/orderPage.css">           <!-- page-specific last -->
+    <link rel="preload" as="image" href="/images/sports-car-orders.jpg">
+
+     <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    .existing-reservation-banner {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid #ef4444;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      color: #fecaca;
+    }
+    .existing-reservation-banner p {
+      margin: 0 0 0.5rem 0;
+    }
+  </style>
+</head>
+<body class="order-page">
+    <%- include('partials/header') %>
+
+    <main class="new-container">
+        <% if (typeof existingReservation !== 'undefined' && existingReservation) { %>
+          <section class="existing-reservation-banner">
+            <p>
+              You already have an active reservation for
+              <strong><%= existingReservation.carName %></strong>
+              from <%= existingReservation.pickupDate %> to <%= existingReservation.returnDate %>
+              <% if (typeof existingReservation.totalPrice !== 'undefined' && existingReservation.totalPrice !== null) { %>
+                (total €<%= Number(existingReservation.totalPrice).toFixed(2) %>)
+              <% } %>.
+              Please finish or release it before starting another booking.
+            </p>
+            <form id="release-reservation-form" action="/reservations/release-and-rehold" method="POST" style="margin-top:0.5rem;" data-release-endpoint="/reservations/release-and-rehold">
+              <input type="hidden" name="_csrf" value="<%= csrfToken || '' %>">
+              <% if (typeof releaseRedirect !== 'undefined' && releaseRedirect) { %>
+                <input type="hidden" name="redirect" value="<%= releaseRedirect %>">
+              <% } %>
+              <button type="submit" class="new-btn" style="background:#ef4444;border:none;">Release reservation</button>
+            </form>
+          </section>
+        <% } %>
+        <!-- Order Details Section -->
+         <%- include('partials/orderDetails', {
+            car,
+            pickupLocation,
+            returnLocation,
+            pickupDate,
+            returnDate,
+            pickupTime,
+            returnTime,
+            rentalDays,
+            deliveryPrice,
+            returnPrice,
+            totalPrice
+        }) %>
+
+        <!-- User Details Form Section -->
+       <%- include('partials/userInfo', {
+            car,
+            pickupDate,
+            returnDate,
+            pickupDateISO,
+            returnDateISO,
+            pickupTime,
+            returnTime,
+            pickupLocation,
+            returnLocation,
+            rentalDays,
+            deliveryPrice,
+            returnPrice,
+            totalPrice,
+            fullName,
+            phoneNumber,
+            email,
+            address,
+            hotelName
+        }) %>
+
+        <!-- Confirmation Message Section -->
+    </main>
+
+    <%- include('partials/footer') %>
+</body>
+<script src="/js/mobileNav.js"></script>
+<script src="/js/orderPage.js"></script>
+</html>

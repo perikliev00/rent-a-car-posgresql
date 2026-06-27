@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="4;url=/">
+    <title><%= title %></title>
+    <style>
+        body {
+            font-family: 'Inter', 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .success-container {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 2px solid #ffd23f;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+            width: 90%;
+        }
+        .success-icon {
+            font-size: 4rem;
+            color: #ffd23f;
+            margin-bottom: 1rem;
+        }
+        .success-title {
+            font-size: 2rem;
+            color: #ffd23f;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        .success-message {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .redirect-message {
+            font-size: 0.9rem;
+            color: #cccccc;
+            margin-top: 1rem;
+        }
+        .countdown {
+            color: #ffd23f;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">✓</div>
+        <h1 class="success-title">Thank You!</h1>
+        <p class="success-message">
+            Your payment has been processed successfully.<br>
+            <%= message %>
+        </p>
+        <p class="redirect-message">
+            Redirecting to home page in <span class="countdown" id="countdown">4</span> seconds...
+        </p>
+    </div>
+
+    <script src="/js/successRedirect.js"></script>
+</body>
+</html>

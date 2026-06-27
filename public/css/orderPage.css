@@ -1,0 +1,774 @@
+/* Dark themed order page aligned with other pages */
+.order-page{
+  background-color: #0b0b0b;
+  background: var(--site-bg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #ffffff;
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100vh;
+  font-family: 'Inter', 'Poppins', sans-serif;
+}
+
+/* Print layout: fit content neatly on A4, reduce margins, avoid page breaks */
+@media print {
+  @page { size: A4; margin: 10mm; }
+
+  /* Remove backgrounds/shadows that waste ink and space */
+  body.order-page, .order-page .order-details-container, .order-page .user-details-form {
+    background: #ffffff !important;
+    box-shadow: none !important;
+    color: #000 !important;
+  }
+
+  /* Hide site chrome while printing */
+  .order-page .header, .order-page .footer, .order-page .menu-toggle, .order-page .mobile-overlay { display: none !important; }
+
+  /* Compact type scale for print */
+  body.order-page { font-size: 12px; line-height: 1.35; }
+  .order-header h1 { font-size: 1.2rem; }
+  .car-info h3 { font-size: 1rem; }
+  .info-section h3 { font-size: .95rem; }
+  .card-content h4 { font-size: .9rem; }
+
+  /* Fit images to page width and reduce height */
+  .car-image { height: 220px; object-fit: cover; }
+
+  /* Tighten paddings and gaps */
+  .order-details-container { margin: 0 0 10mm 0; border-radius: 8px; }
+  .order-header { padding: 1rem 1rem .5rem; border-bottom: 1px solid #ddd; }
+  .order-content { padding: 1rem; }
+  .car-section { grid-template-columns: 1fr; gap: .8rem; margin-bottom: 1rem; }
+  .order-info-grid { grid-template-columns: 1fr 1fr; gap: .8rem; margin-bottom: 1rem; }
+  .info-cards { gap: .6rem; margin-bottom: .6rem; }
+  .info-card { padding: .75rem; border-radius: 8px; }
+  .card-icon { width: 34px; height: 34px; font-size: .9rem; }
+  .pricing-details { padding: .8rem; }
+  .price-item { padding: .45rem 0; }
+  .price-item.total { margin-top: .6rem; padding-top: .6rem; font-size: 1rem; }
+
+  /* Prevent breaking important blocks across pages */
+  .order-details-container, .user-details-form, .info-card, .price-item,
+  .car-section, .order-info-grid { break-inside: avoid; page-break-inside: avoid; }
+
+  /* Hide interactive-only elements */
+  .order-actions, .view-details-btn { display: none !important; }
+}
+/* Keep header and footer black */
+.order-page .header,
+.order-page .footer {
+  background: #111 !important;
+  position: relative;
+  z-index: 10;
+}
+
+/* remove grey wrapper */
+.order-page .new-container{
+  background:none;
+  color:#ffd23f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+/* Desktop layout - stacked vertically */
+@media (min-width: 768px) {
+  .order-page .new-container {
+    flex-direction: column;
+  }
+}
+
+/* Mobile layout - stacked vertically */
+@media (max-width: 767px) {
+  .order-page .new-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+}
+
+/* Order details card */
+.order-details-container{
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 2px solid #ffd23f;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(255, 210, 63, 0.15);
+  color: #ffffff;
+  margin: 2rem auto;
+  max-width: 1200px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Mobile layout adjustments */
+@media (max-width: 767px) {
+  .order-details-container {
+    margin: 0;
+    max-width: 95%;
+    width: 100%;
+  }
+}
+
+.order-details-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ffd23f, #ff6b35, #00d4ff);
+}
+
+/* Order Header */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid rgba(255, 210, 63, 0.2);
+}
+
+.order-header h1 {
+  color: #ffd23f;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.order-status {
+  display: flex;
+  align-items: center;
+}
+
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.pending {
+  background: linear-gradient(135deg, #ffd23f, #ff6b35);
+  color: #1a1a1a;
+}
+
+/* Order Content */
+.order-content {
+  padding: 2rem;
+}
+
+/* Car Section */
+.car-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.car-image-container {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.car-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.car-image-container:hover .car-image {
+  transform: scale(1.05);
+}
+
+.car-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.car-image-container:hover .car-overlay {
+  opacity: 1;
+}
+
+.order-page .view-details-btn {
+  background: linear-gradient(135deg, #ffd23f, #ff6b35);
+  color: #1a1a1a;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.order-page .view-details-btn:hover {
+  transform: scale(1.05);
+}
+
+.car-info h3 {
+  color: #ffd23f;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.car-category {
+  color: #b8b8d1;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+}
+
+.car-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.feature-tag {
+  background: rgba(255, 210, 63, 0.1);
+  color: #ffd23f;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Order Info Grid */
+.order-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.info-section h3 {
+  color: #ffd23f;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-cards {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.info-card {
+  background: rgba(255, 210, 63, 0.05);
+  border: 1px solid rgba(255, 210, 63, 0.2);
+  border-radius: 15px;
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 210, 63, 0.2);
+}
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #ffd23f, #ff6b35);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1a1a;
+  font-size: 1.2rem;
+}
+
+.card-content h4 {
+  color: #ffd23f;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.card-content .date {
+  color: #ffffff;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+}
+
+.card-content .time {
+  color: #b8b8d1;
+  margin: 0 0 0.5rem 0;
+}
+
+.card-content .location {
+  color: #b8b8d1;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.rental-duration {
+  background: rgba(255, 210, 63, 0.1);
+  color: #ffd23f;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Pricing Details */
+.pricing-details {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 1.5rem;
+}
+
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 210, 63, 0.1);
+}
+
+.price-item:last-child {
+  border-bottom: none;
+}
+
+.price-item.total {
+  border-top: 2px solid #ffd23f;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.price-label {
+  color: #b8b8d1;
+}
+
+.price-value {
+  color: #ffd23f;
+  font-weight: 600;
+}
+
+.price-item.total .price-label,
+.price-item.total .price-value {
+  color: #ffd23f;
+  font-size: 1.2rem;
+}
+
+/* Order Actions */
+.order-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 210, 63, 0.2);
+}
+
+.order-page .order-actions .action-btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 180px;
+  justify-content: center;
+}
+
+.order-page .order-actions .action-btn.primary {
+  background: linear-gradient(135deg, #ffd23f, #ff6b35);
+  color: #1a1a1a;
+  box-shadow: 0 5px 20px rgba(255, 210, 63, 0.3);
+}
+
+.order-page .order-actions .action-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 210, 63, 0.4);
+}
+
+.order-page .order-actions .action-btn.secondary {
+  background: transparent;
+  color: #ffd23f;
+  border: 2px solid #ffd23f;
+}
+
+.order-page .order-actions .action-btn.secondary:hover {
+  background: #ffd23f;
+  color: #1a1a1a;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .order-details-container {
+    margin: 1rem;
+    max-width: none;
+  }
+  
+  .car-section {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .order-info-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .info-cards {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .order-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .order-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .order-content {
+    padding: 1rem;
+  }
+  
+  .car-image {
+    height: 400px;
+    width: 100%;
+  }
+  
+  .order-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .order-page .order-actions .action-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .info-card {
+    padding: 1rem;
+  }
+  
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-details-container {
+    margin: 0;
+    border-radius: 15px;
+  }
+  
+  .order-header {
+    padding: 0.8rem;
+  }
+  
+  .order-content {
+    padding: 0.8rem;
+  }
+  
+  .car-image {
+    height: 300px;
+    width: 100%;
+  }
+  
+  .order-header h1 {
+    font-size: 1.1rem;
+  }
+  
+  .car-info h3 {
+    font-size: 1.1rem;
+  }
+  
+  .info-section h3 {
+    font-size: 0.9rem;
+  }
+  
+  .info-cards {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .info-card {
+    padding: 0.6rem;
+  }
+  
+  .info-card h4 {
+    font-size: 0.8rem;
+  }
+  
+  .info-card p {
+    font-size: 0.7rem;
+  }
+  
+  /* Mobile form adjustments for vertical layout */
+  .user-details-form h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .user-details-form .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .user-details-form input,
+  .user-details-form textarea {
+    padding: 0.8rem 1rem;
+    font-size: 0.8rem;
+    min-height: 45px;
+  }
+  
+  .user-details-form input::placeholder,
+  .user-details-form textarea::placeholder {
+    font-size: 0.7rem !important;
+  }
+  
+  .user-details-form textarea {
+    min-height: 80px;
+  }
+  
+  .user-details-form button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Mobile pricing details adjustments */
+  .pricing-details {
+    padding: 1rem;
+  }
+  
+  .price-item {
+    padding: 0.5rem 0;
+  }
+  
+  .price-item.total {
+    font-size: 1rem;
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+  }
+  
+  .price-item.total .price-label,
+  .price-item.total .price-value {
+    font-size: 1rem;
+  }
+  
+  .price-label {
+    font-size: 0.85rem;
+  }
+  
+  .price-value {
+    font-size: 0.9rem;
+  }
+  
+  /* Mobile text size for all inputs */
+  .order-page .user-details-form input,
+  .order-page .user-details-form textarea {
+    font-size: 0.8rem;
+  }
+  
+  /* Mobile placeholder text for all inputs */
+  .order-page .user-details-form input::placeholder,
+  .order-page .user-details-form textarea::placeholder {
+    font-size: 0.7rem !important;
+  }
+}
+
+/* User details form */
+.user-details-form{
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 2px solid #ffd23f;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(255, 210, 63, 0.15);
+  color: #ffffff;
+  margin: 2rem auto;
+  max-width: 600px;
+  overflow: hidden;
+  position: relative;
+  padding: 2rem;
+}
+
+/* Mobile layout adjustments for user details form */
+@media (max-width: 767px) {
+  .user-details-form {
+    margin: 0;
+    max-width: 80%;
+    width: 100%;
+    padding: 1.5rem;
+  }
+}
+
+.user-details-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ffd23f, #ff6b35, #00d4ff);
+}
+/* User details form header */
+.user-details-form h2 {
+  color: #ffd23f;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Form groups */
+.user-details-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.user-details-form label {
+  color: #ffd23f;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+  font-size: 0.95rem;
+}
+
+.user-details-form input,
+.user-details-form textarea {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 210, 63, 0.4);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  min-height: 50px;
+}
+
+.user-details-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.user-details-form input::placeholder,
+.user-details-form textarea::placeholder {
+  color: #b8b8d1;
+  opacity: 1;
+  font-size: 1rem;
+}
+
+.user-details-form input:focus,
+.user-details-form textarea:focus {
+  outline: none;
+  border-color: #ffd23f;
+  box-shadow: 0 0 0 4px rgba(255, 210, 63, 0.2);
+  background: rgba(0, 0, 0, 0.6);
+  transform: translateY(-1px);
+}
+
+.user-details-form input:hover,
+.user-details-form textarea:hover {
+  border-color: rgba(255, 210, 63, 0.6);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Submit button */
+.user-details-form button {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #ffd23f, #ff6b35);
+  border: none;
+  border-radius: 25px;
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 5px 20px rgba(255, 210, 63, 0.3);
+  margin-top: 1rem;
+}
+
+.user-details-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 210, 63, 0.4);
+  background: linear-gradient(135deg, #ff6b35, #ffd23f);
+}
+
+.user-details-form button:active {
+  transform: translateY(0);
+}
+
+/* Desktop specific input adjustments */
+@media (min-width: 768px) {
+  .user-details-form .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .user-details-form .form-group input,
+  .user-details-form .form-group textarea {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+  
+  .user-details-form .form-group label {
+    text-align: center;
+    width: 100%;
+  }
+}
